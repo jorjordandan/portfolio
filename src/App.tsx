@@ -1,43 +1,65 @@
-import { Suspense, useState } from "react";
-import "./App.css";
-import { Canvas } from "@react-three/fiber";
+import { Suspense, useState } from 'react';
+import './App.css';
+import { Canvas } from '@react-three/fiber';
 import {
   OrbitControls,
   PerspectiveCamera,
   Environment,
-} from "@react-three/drei";
-import Office from "./Office";
-import { useStore } from "./state.js";
-import Typer from "./Typer.jsx";
-import Button from "./Button"
+} from '@react-three/drei';
+import Office from './Office';
+import { useStore } from './state.js';
+import Typer from './Typer.jsx';
+import Button from './Button';
 
-function PrinterScreen(props) {
-  const {screen, showScreen, hideScreen} = useStore();
-  console.log(screen)
+function PrinterScreen() {
+  const { screen, showScreen, hideScreen, printAirplane } = useStore();
+  const [selected, setSelected] = useState('airplane');
+  // console.log(screen);
+
+  const printObject = () => {
+    printAirplane();
+    hideScreen();
+  };
+
   return (
     <>
-    {screen.visible && <div className="printer-screen">
-      <div className="dismiss" onClick={hideScreen}>X</div>
-      <div className="screen-title">ANYCUBIC MEGA S</div>
-      <div>Files to print:</div>
-      <div> airplane.gcode</div>
-      <div> handle.gcode</div>
-      <div className="button-container">
-      <div className="screen-button">Print Object...</div>
-      <div className="screen-button inactive">Load Object...</div>
-      </div>
-
-      
-    </div>}
+      {screen.visible && (
+        <div className='printer-screen'>
+          <div className='dismiss' onClick={hideScreen}>
+            X
+          </div>
+          <div className='screen-title'>ANYCUBIC MEGA S</div>
+          <div>Files to print:</div>
+          <div
+            className={selected === 'airplane' ? 'selected' : ''}
+            onClick={() => setSelected('airplane')}
+          >
+            airplane.gcode
+          </div>
+          {screen.keyLoaded && (
+            <div
+              className={selected === 'handle' ? 'selected' : ''}
+              onClick={() => setSelected('handle')}
+            >
+              handle.gcode
+            </div>
+          )}
+          <div className='button-container'>
+            <div className='screen-button' onClick={printObject}>
+              Print Object...
+            </div>
+            <div className='screen-button inactive'>Load Object...</div>
+          </div>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
 function App() {
-  const [currentObj, setCurrentObj] = useState("none");
+  const [currentObj, setCurrentObj] = useState('none');
   const [currentTextIdx, setCurrentTextIdx] = useState(0);
-	const {text, button, hideButton, setText, screen, showScreen, hideScreen }= useStore((state) => state);
-
+  const { text, button, hideButton, setText } = useStore((state) => state);
 
   const printText = (inText: string[], item: string) => {
     if (inText.length === 1) {
@@ -59,10 +81,8 @@ function App() {
     }
   };
 
-  
-
   return (
-    <div className="App">
+    <div className='App'>
       <Suspense>
         <Typer dataText={text} />
         {button && <Button {...button} />}
@@ -70,7 +90,7 @@ function App() {
         <Canvas dpr={[1, 2]} shadows>
           <spotLight
             castShadow
-            color="#ccccff"
+            color='#ccccff'
             intensity={1}
             position={[10, 20, 10]}
             angle={0.5}
@@ -79,10 +99,10 @@ function App() {
             shadow-bias={0.0004}
           />
 
-          <Environment preset="apartment" />
-          <fog attach="fog" args={["#ffffff", 0, 20]} />
+          <Environment preset='apartment' />
+          <fog attach='fog' args={['#ffffff', 0, 20]} />
 
-         <Office printText={printText} />
+          <Office printText={printText} />
           <OrbitControls
             makeDefault
             maxPolarAngle={Math.PI / 2}
@@ -92,11 +112,7 @@ function App() {
             enableZoom={true}
             enablePan={false}
           />
-          <PerspectiveCamera
-            makeDefault
-            fov={50}
-            position={[0, 0, 4]}
-          />
+          <PerspectiveCamera makeDefault fov={50} position={[0, 0, 4]} />
         </Canvas>
       </Suspense>
     </div>

@@ -7,7 +7,6 @@
   bottom: 0;
 }
 
-
 .text-display {
   position: absolute;
   bottom: 75px;
@@ -25,7 +24,13 @@
   user-select: none;
 }
 
-.button {  
+.selected {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 80px;
+  border-radius: 5px;
+}
+
+.button {
   position: absolute;
   bottom: 25px;
   left: 50%;
@@ -61,7 +66,6 @@
   border: 15px solid black;
   border-radius: 50px;
   z-index: 100;
-
 }
 
 .screen-title {
@@ -79,12 +83,11 @@
 .screen-button.inactive {
   opacity: 0.5;
   cursor: default;
-
 }
 .dismiss {
   position: absolute;
   top: 10px;
-  right:25px;
+  right: 25px;
   font-size: 60px;
   color: black;
   font-family: monospace;
