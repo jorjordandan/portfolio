@@ -19,7 +19,7 @@ export default function ThreePrinter({printText}) {
       ? printText(texts.printer.on, "printer")
       : printText(texts.printer.off, "printer");
 
-    if (deskState.up) {
+    if (deskState.up && printerState.power) {
       setButton({
         text: "Look at screen",
         click: showScreen,

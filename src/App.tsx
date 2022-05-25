@@ -10,56 +10,16 @@ import Office from './Office';
 import { useStore } from './state.js';
 import Typer from './Typer.jsx';
 import Button from './Button';
+import PrinterScreen from "./PrinterScreen";
+import InventoryPlane from "./items/InventoryPlane";
 
-function PrinterScreen() {
-  const { screen, showScreen, hideScreen, printAirplane } = useStore();
-  const [selected, setSelected] = useState('airplane');
-  // console.log(screen);
 
-  const printObject = () => {
-    printAirplane();
-    hideScreen();
-  };
 
-  return (
-    <>
-      {screen.visible && (
-        <div className='printer-screen'>
-          <div className='dismiss' onClick={hideScreen}>
-            X
-          </div>
-          <div className='screen-title'>ANYCUBIC MEGA S</div>
-          <div>Files to print:</div>
-          <div
-            className={selected === 'airplane' ? 'selected' : ''}
-            onClick={() => setSelected('airplane')}
-          >
-            airplane.gcode
-          </div>
-          {screen.keyLoaded && (
-            <div
-              className={selected === 'handle' ? 'selected' : ''}
-              onClick={() => setSelected('handle')}
-            >
-              handle.gcode
-            </div>
-          )}
-          <div className='button-container'>
-            <div className='screen-button' onClick={printObject}>
-              Print Object...
-            </div>
-            <div className='screen-button inactive'>Load Object...</div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
 
 function App() {
   const [currentObj, setCurrentObj] = useState('none');
   const [currentTextIdx, setCurrentTextIdx] = useState(0);
-  const { text, button, hideButton, setText } = useStore((state) => state);
+  const { text, button, hideButton, setText, airplane } = useStore((state) => state);
 
   const printText = (inText: string[], item: string) => {
     if (inText.length === 1) {
@@ -103,6 +63,7 @@ function App() {
           <fog attach='fog' args={['#ffffff', 0, 20]} />
 
           <Office printText={printText} />
+          {airplane.inInventory && <InventoryPlane />}
           <OrbitControls
             makeDefault
             maxPolarAngle={Math.PI / 2}

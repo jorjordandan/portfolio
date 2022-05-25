@@ -18,12 +18,18 @@ interface State {
     keyInserted: boolean;
     keyLoaded: boolean;
   };
+  inventory: {
+    items: string[],
+  };
+  addToInventory: (item: string) => void;
   showScreen: () => void;
   hideScreen: () => void;
   airplane: {
     printed: boolean;
+    inInventory: boolean;
   };
   printAirplane: () => void;
+  collectAirplane: () => void;
 }
 
 interface IButton {
@@ -32,6 +38,8 @@ interface IButton {
   afterClick: () => void;
   hideButton: () => void;
 }
+
+
 
 export const useStore = create<State>((set) => ({
   desk: { power: false, up: false },
@@ -43,7 +51,7 @@ export const useStore = create<State>((set) => ({
   powerOnPrinter: () =>
     set((state) => ({ printer: { ...state.printer, power: true } })),
 
-  text: ['Welcome to my office :)'],
+  text: ['Welcome to my ~point and cli~ normal office :)'],
   setText: (text: string[]) => set({ text }),
 
   button: undefined,
@@ -63,6 +71,20 @@ export const useStore = create<State>((set) => ({
 
   airplane: {
     printed: false,
+    inInventory: false,
+  },
+  inventory: {
+    items: [],
+  },
+  addToInventory: (item: string) => {
+    set((state) => ({
+      inventory: {
+        items: [...state.inventory.items, item],
+      },
+    }));
+  },
+  collectAirplane: () => {
+    set((state) => ({airplane: { ...state.airplane, inInventory: true }}));
   },
   printAirplane: () =>
     set((state) => ({ airplane: { ...state.airplane, printed: true } })),

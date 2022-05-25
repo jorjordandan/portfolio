@@ -1,4 +1,7 @@
 export const texts = {
+  airplane: [
+    "You've 3d printed an airplane. It's a bit small, but it looks throwable.",
+  ],
   keeb: [
     "A mechanical keyboard...",
     "Looks like a Tofu 65...",

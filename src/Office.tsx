@@ -9,6 +9,7 @@ import Chair from "./items/Chair";
 import { ChairTop } from "./items/Chair";
 import PrinterCord from "./items/PrinterCord";
 import { Outlet, CordFloor, CordPlugged } from "./items/Cord.js";
+import Airplane from "./items/Airplane";
 import { texts } from "./text.js";
 import { useStore } from "./state.js";
 
@@ -47,6 +48,7 @@ export default function Office({ printText }) {
       <CordFloor {...defaults} />
       <CordPlugged />
       <PrinterCord {...defaults} />
+      <Airplane {...defaults} />
       {/* <BakeShadows /> */}
     </group>
   );
