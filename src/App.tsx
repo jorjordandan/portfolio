@@ -66,7 +66,7 @@ function App() {
           <fog attach='fog' args={['#ffffff', 0, 20]} />
 
           <Office printText={printText} />
-          {airplane.inInventory && <InventoryPlane />}
+          {true && <InventoryPlane />}
           <OrbitControls
             makeDefault
             maxPolarAngle={Math.PI / 2}

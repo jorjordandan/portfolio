@@ -50,6 +50,14 @@ interface State {
   };
   addToInventory: (item: string) => void;
 
+
+  //puzzle box
+  puzzle: {
+    inInventory: boolean;
+    visible: boolean;
+  };
+  collectPuzzle: () => void;
+
   // 3d printable airplan
   airplane: {
     printed: boolean;
@@ -114,10 +122,6 @@ export const useStore = create<State>((set) => ({
 
   hideNotebook: () => set((state) => ({ notebook: { visible: false } })),
 
-  airplane: {
-    printed: false,
-    inInventory: false,
-  },
   inventory: {
     items: [],
   },
@@ -128,6 +132,18 @@ export const useStore = create<State>((set) => ({
       },
     }));
   },
+  puzzle: {
+  inInventory: false,
+  visible: true,
+  },
+  collectPuzzle: () => set((state) => ({ puzzle: { inInventory: true, visible: false } })),
+  
+  
+  airplane: {
+    printed: false,
+    inInventory: false,
+  },
+  
   collectAirplane: () => {
     set((state) => ({ airplane: { ...state.airplane, inInventory: true } }));
   },

@@ -6,9 +6,10 @@ import { Scene, Matrix4 } from 'three'
 import {  useFrame, useThree, createPortal } from '@react-three/fiber'
 import {  OrthographicCamera, useCamera } from '@react-three/drei'
 import{ TestPlane } from "./TestPlane";
+import {InvPuzzleBox} from './InvPuzzleBox';
 
 
-export default function InventoryPlane() {
+export default function Inventory() {
   const { gl, scene, camera, size } = useThree()
   const virtualScene = useMemo(() => new Scene(), [])
   const virtualCam = useRef()
@@ -29,24 +30,25 @@ export default function InventoryPlane() {
 
   return createPortal(
     <>
-      <OrthographicCamera ref={virtualCam} makeDefault={false} position={[size.width / 10 * 8.5, size.height / 10 * 8, 100]} />
-      <TestPlane
+      <OrthographicCamera ref={virtualCam} makeDefault={false} position={[size.width / 10 * 8.5, size.height / 10 * 8, 300]} />
+      <InvPuzzleBox
       ref={planeRef}
       raycast={useCamera(virtualCam)}
-      position={[size.width / 2 - 80, size.height / 2 - 80, 0]}
+      position={[size.width / 2 - 80, size.height / 2 - 80, -200]}
+      scale={60}
       />
       
       <mesh
         ref={ref}
         raycast={useCamera(virtualCam)}
-        position={[size.width / 2 - 80, size.height / 2 - 80, 0]} >
+        position={[size.width / 2 - 80, size.height / 2 - 80, -300]} >
 
         {[...Array(6)].map((_, index) => (
           <meshLambertMaterial attachArray="material" key={index} color={ 'white'} />
         ))}
-        {<sphereGeometry args={[-100, 100, 130]} />}
+        {<sphereGeometry args={[-100, 16, 16]} />}
       </mesh>
-      <ambientLight intensity={5} />
+      <ambientLight intensity={2} />
       <directionalLight position={[10, 100, 10]} intensity={3} />
     </>,
     virtualScene

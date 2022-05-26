@@ -1,4 +1,7 @@
 export const texts = {
+  puzzle: [
+    "A mysterious box. Looks like it's missing some pieces.... should I pick it up?",
+  ],
   airplane: [
     "You've 3d printed an airplane. It's a bit small, but it looks throwable.",
   ],
@@ -6,9 +9,7 @@ export const texts = {
     "A mechanical keyboard...",
     "Looks like a Tofu 65...",
     "Sounds like Kaihl box black switches...",
-    "Are those GMK white on black keycaps? I think they are.",
     "Kinda cool I guess",
-    "probably kind of a waste of money.",
   ],
   speaker: [
     "Some Edifier speakers...",

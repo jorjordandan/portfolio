@@ -8,6 +8,7 @@ import { useSpring, animated, config } from '@react-spring/three';
 import { texts } from '../text';
 import { useStore } from '../state';
 import NotebookClosed from './NotebookClosed';
+import PuzzleBox from "./PuzzleBox";
 
 export function Keeb(props) {
   const group = useRef();
@@ -107,6 +108,7 @@ export function Desktop(props) {
       <group ref={group} {...props} dispose={null}>
         <animated.group position-y={position}>
           <NotebookClosed onClick={showNotebook} />
+          <PuzzleBox  {...props} />
           <group
             position={[-0.32, 0.79, -1.03]}
             rotation={[-Math.PI / 2, 0, 0]}
