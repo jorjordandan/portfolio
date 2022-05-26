@@ -10,16 +10,17 @@ import Office from './Office';
 import { useStore } from './state.js';
 import Typer from './Typer.jsx';
 import Button from './Button';
-import PrinterScreen from "./PrinterScreen";
-import InventoryPlane from "./items/InventoryPlane";
-
-
-
+import PrinterScreen from './PrinterScreen';
+import Notebook from './Notebook';
+import ComputerScreen from './ComputerScreen';
+import InventoryPlane from './items/InventoryPlane';
 
 function App() {
   const [currentObj, setCurrentObj] = useState('none');
   const [currentTextIdx, setCurrentTextIdx] = useState(0);
-  const { text, button, hideButton, setText, airplane } = useStore((state) => state);
+  const { text, button, hideButton, setText, airplane } = useStore(
+    (state) => state
+  );
 
   const printText = (inText: string[], item: string) => {
     if (inText.length === 1) {
@@ -46,7 +47,9 @@ function App() {
       <Suspense>
         <Typer dataText={text} />
         {button && <Button {...button} />}
+        <Notebook />
         <PrinterScreen />
+        <ComputerScreen />
         <Canvas dpr={[1, 2]} shadows>
           <spotLight
             castShadow
