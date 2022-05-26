@@ -7,6 +7,7 @@ import { useGLTF } from '@react-three/drei';
 import { useSpring, animated, config } from '@react-spring/three';
 import { texts } from '../text';
 import { useStore } from '../state';
+import NotebookClosed from './NotebookClosed';
 
 export function Keeb(props) {
   const group = useRef();
@@ -56,6 +57,7 @@ export function Desktop(props) {
   const moveDeskUp = useStore((state) => state.moveDeskUp);
   const moveDeskDown = useStore((state) => state.moveDeskDown);
   const showComputerScreen = useStore((state) => state.showComputerScreen);
+  const showNotebook = useStore((state) => state.showNotebook);
   const up = deskState.up;
   const { nodes, materials } = useGLTF('/Desktop2.glb');
   const upButtonTexts = texts.desk.upButton;
@@ -104,6 +106,7 @@ export function Desktop(props) {
     <>
       <group ref={group} {...props} dispose={null}>
         <animated.group position-y={position}>
+          <NotebookClosed onClick={showNotebook} />
           <group
             position={[-0.32, 0.79, -1.03]}
             rotation={[-Math.PI / 2, 0, 0]}
@@ -113,9 +116,7 @@ export function Desktop(props) {
               castShadow
               receiveShadow
               geometry={nodes.iMac_Silver_iMac_Screen_0.geometry}
-              material={
-                materials.iMac_Screen 
-              }
+              material={materials.iMac_Screen}
               onClick={showComputerScreen}
               position={[0, 0, -0.02]}
             />

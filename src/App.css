@@ -73,8 +73,8 @@
   z-index: 100;
 }
 
-.computer-screen.two{
-  background-image: url("./spongebob.jpg");
+.computer-screen.two {
+  background-image: url('./spongebob.jpg');
 }
 
 .computer-profile {
@@ -204,7 +204,6 @@
   align-items: center;
 }
 
-
 /* fake cura */
 
 .fake-cura {
@@ -240,12 +239,12 @@
   font-size: 1rem;
   font-weight: bold;
   border: 1px solid #ccc;
-  border-radius: 5px 5px 0px 0px ;
+  border-radius: 5px 5px 0px 0px;
   z-index: 100;
 }
 
 .cura-title {
-  font-size: .8rem;
+  font-size: 0.8rem;
   width: 100%;
 }
 
@@ -253,7 +252,6 @@
   display: flex;
   flex-direction: row;
   max-width: 90px;
-
 }
 .red-dot {
   width: 10px;
@@ -278,4 +276,32 @@
   background-color: #33cc33;
   border-radius: 50%;
   margin: 5px;
+}
+
+.cura-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.body-title {
+  font-size: 2em;
+  padding: 20px;
+}
+
+.body-text {
+  font-size: 1em;
+  padding: 20px;
+}
+.body-button {
+  padding: 10px;
+  background-color: #aaa;
+  border-radius: 5px;
+  margin: 40px;
+}
+
+.body-button:hover {
+  background-color: #999;
+  cursor: pointer;
 }

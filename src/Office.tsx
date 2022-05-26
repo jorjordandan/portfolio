@@ -1,21 +1,20 @@
-import { useState, Suspense, useEffect } from "react";
-import "./App.css";
-import { BakeShadows } from "@react-three/drei";
+import { useState, Suspense, useEffect } from 'react';
+import './App.css';
+import { BakeShadows } from '@react-three/drei';
 
-import OfficeBase from "./items/OfficeBase";
-import ThreePrinter from "./items/3dPrinter";
-import { Desktop } from "./items/DeskTop";
-import Chair from "./items/Chair";
-import { ChairTop } from "./items/Chair";
-import PrinterCord from "./items/PrinterCord";
-import { Outlet, CordFloor, CordPlugged } from "./items/Cord.js";
-import Airplane from "./items/Airplane";
-import NotebookClosed from './items/NotebookClosed';
-import { texts } from "./text.js";
-import { useStore } from "./state.js";
+import OfficeBase from './items/OfficeBase';
+import ThreePrinter from './items/3dPrinter';
+import { Desktop } from './items/DeskTop';
+import Chair from './items/Chair';
+import { ChairTop } from './items/Chair';
+import PrinterCord from './items/PrinterCord';
+import { Outlet, CordFloor, CordPlugged } from './items/Cord.js';
+import Airplane from './items/Airplane';
+// import NotebookClosed from './items/NotebookClosed';
+import { texts } from './text.js';
+import { useStore } from './state.js';
 
 export default function Office({ printText }) {
-
   const defaults = { position: [0, 0, 0], scale: 1, printText, texts };
 
   // drcmda pointer hover code
@@ -36,13 +35,10 @@ export default function Office({ printText }) {
   // <div class="pointer">POINTER</div>
   // <div class="svg">SVG</div>
 
-
-
   return (
     <group position={[0, -1, 1.5]}>
       <OfficeBase {...defaults} />
       <Desktop {...defaults} />
-      <NotebookClosed {...defaults} />
       <ThreePrinter {...defaults} />
       <Chair {...defaults} />
       <ChairTop {...defaults} />
