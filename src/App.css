@@ -54,6 +54,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('/desktop_bg.jpeg');
+  background-size: cover;
+  background-position: center;
   width: 85vw;
   bottom: 50%;
   aspect-ratio: 16 / 9;
@@ -64,10 +67,14 @@
   color: white;
   font-size: 1rem;
   font-weight: bold;
-  border: 1px solid black;
+  border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
   z-index: 100;
+}
+
+.computer-screen.two{
+  background-image: url("./spongebob.jpg");
 }
 
 .computer-profile {
@@ -195,4 +202,80 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+
+/* fake cura */
+
+.fake-cura {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  bottom: 50%;
+  aspect-ratio: 16 / 9;
+  left: 50%;
+  font-family: sans-serif;
+  transform: translate(-50%, 50%);
+  background-color: #ddd;
+  color: #555;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 100;
+}
+
+.cura-app-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  background-color: #fff;
+  color: #555;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 5px 5px 0px 0px ;
+  z-index: 100;
+}
+
+.cura-title {
+  font-size: .8rem;
+  width: 100%;
+}
+
+.dots {
+  display: flex;
+  flex-direction: row;
+  max-width: 90px;
+
+}
+.red-dot {
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
+  margin: 5px;
+  margin-left: 10px;
+}
+
+.yellow-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ffd700;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.green-dot {
+  width: 10px;
+  height: 10px;
+  background-color: #33cc33;
+  border-radius: 50%;
+  margin: 5px;
 }

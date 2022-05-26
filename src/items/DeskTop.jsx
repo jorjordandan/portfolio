@@ -114,7 +114,7 @@ export function Desktop(props) {
               receiveShadow
               geometry={nodes.iMac_Silver_iMac_Screen_0.geometry}
               material={
-                hasPower ? materials.iMac_Screen : materials.Black_Plastic
+                materials.iMac_Screen 
               }
               onClick={showComputerScreen}
               position={[0, 0, -0.02]}

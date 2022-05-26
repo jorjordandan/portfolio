@@ -1,15 +1,15 @@
-import { useStore } from './state.js';
-import { useState, useEffect } from 'react';
+import { useStore } from "./state.js";
+import { useState, useEffect } from "react";
 
 export default function ComputerScreen() {
-  const [loginMessage, setLoginMessage] = useState('');
+  const [loginMessage, setLoginMessage] = useState("");
   const [screen, setScreen] = useState(1);
   const { hideComputerScreen, computerScreen } = useStore();
   console.log(computerScreen.visible);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
-    if (loginMessage === 'unlocked!') {
+    if (loginMessage === "unlocked!") {
       timeout = setTimeout(() => {
         setScreen(2);
       }, 1000);
@@ -26,26 +26,28 @@ export default function ComputerScreen() {
     e.preventDefault();
     const val = e.target[0].value;
 
-    if (val === '12345password54321') {
-      setLoginMessage('unlocked!');
+    if (val === "12345password54321") {
+      setLoginMessage("unlocked!");
     } else {
-      setLoginMessage('nope');
+      setLoginMessage("nope");
     }
   };
 
   const ScreenOne = () => {
     return (
-      <div className='computer-screen'>
-        <div className='computer-dismiss' onClick={hideComputerScreen}>
+      <div className="computer-screen">
+        <div className="computer-dismiss" onClick={hideComputerScreen}>
           close X
         </div>
         <div>
-          <img className='computer-profile' src='/profile.png' alt='' />
+          <img className="computer-profile" src="/profile.png" alt="" />
           <div style={{ paddingBottom: 10 }}>Jordan Davis</div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <input type='text' />
-            <div style={{ marginTop: 20 }}>{loginMessage}</div>
-          </form>
+          {loginMessage !== "unlocked!" && (
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <input type="text" />
+              <div style={{ marginTop: 20 }}>{loginMessage}</div>{" "}
+            </form>
+          )}
         </div>
       </div>
     );
@@ -53,9 +55,25 @@ export default function ComputerScreen() {
 
   const ScreenTwo = () => {
     return (
-      <div className='computer-screen'>
-        <div className='computer-dismiss' onClick={hideComputerScreen}>
-          close X
+      <div className="computer-screen two">
+        <div className="computer-dismiss" onClick={hideComputerScreen}>
+          close Xe
+        </div>
+        <div className="fake-cura">
+          <div className="cura-app-bar">
+            <div className="dots">
+              <div className="red-dot"></div>
+              <div className="yellow-dot"></div>
+              <div className="green-dot"></div>
+            </div>
+            <div className="cura-title">Fake Cura Dialogue</div>
+          </div>
+          <div className="cura-body">
+            <div className="body-title">Slicing complete.</div>
+            <div className="body-text">Medallion.stl is ready to download for 3d printing. Would you like to load it onto the usb key?</div>
+            <div className="body-button">Yes</div>
+            <div className="body-button">Cancel</div>
+          </div>
         </div>
         <div>This is a completely different screen, man.</div>
       </div>

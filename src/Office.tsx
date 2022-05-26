@@ -10,6 +10,7 @@ import { ChairTop } from "./items/Chair";
 import PrinterCord from "./items/PrinterCord";
 import { Outlet, CordFloor, CordPlugged } from "./items/Cord.js";
 import Airplane from "./items/Airplane";
+import NotebookClosed from './items/NotebookClosed';
 import { texts } from "./text.js";
 import { useStore } from "./state.js";
 
@@ -41,6 +42,7 @@ export default function Office({ printText }) {
     <group position={[0, -1, 1.5]}>
       <OfficeBase {...defaults} />
       <Desktop {...defaults} />
+      <NotebookClosed {...defaults} />
       <ThreePrinter {...defaults} />
       <Chair {...defaults} />
       <ChairTop {...defaults} />
