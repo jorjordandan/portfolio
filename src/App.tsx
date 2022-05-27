@@ -13,7 +13,7 @@ import Button from './Button';
 import PrinterScreen from './PrinterScreen';
 import Notebook from './Notebook';
 import ComputerScreen from './ComputerScreen';
-import InventoryPlane from './items/InventoryPlane';
+import Inventory from './items/Inventory';
 
 function App() {
   const [currentObj, setCurrentObj] = useState('none');
@@ -66,7 +66,7 @@ function App() {
           <fog attach='fog' args={['#ffffff', 0, 20]} />
 
           <Office printText={printText} />
-          {true && <InventoryPlane />}
+          {true && <Inventory />}
           <OrbitControls
             makeDefault
             maxPolarAngle={Math.PI / 2}
