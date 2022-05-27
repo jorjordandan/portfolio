@@ -36,7 +36,6 @@ export default function Inventory() {
         cam={virtualCam}
         position={[size.width / 2 - 100, size.height / 2 - 100, -200]}
         rotation={[0.2, 0.5, 0]}
-        size={size}
       />
 
       {/* <mesh

@@ -1,16 +1,72 @@
 import { useState } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useCamera } from '@react-three/drei';
 import React, { useRef } from 'react';
+import { useGesture } from 'react-use-gesture';
 import { useGLTF } from '@react-three/drei';
 import { useSpring, animated, config } from '@react-spring/three';
+
+const RingOne = ({ cam }) => {
+  const { size, viewport } = useThree();
+  const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
+  const aspect = size.width / viewport.width;
+  const testRef = useRef();
+  const initialPos = [size.width / 2 - 100, size.height / 2 - 300, -200];
+  const Sprops = useSpring(() => ({
+    scale: [100, 100, 100],
+    position: initialPos,
+    rotation: [0.4, 0.5, 0.4],
+    config: { friction: 10 },
+  }));
+  const [spring, set] = Sprops;
+  // console.log(spring.position.get());
+  const bind = useGesture(
+    {
+      onDrag: ({ down, offset: [xa, ya] }) =>
+        set({
+          position: [xa + size.width / 2 - 100, -ya + size.height / 2 - 300, 0],
+          rotation: [ya / aspect, xa / aspect, 0],
+        }),
+      onDragEnd: ({ offset: [xb, yb] }) =>
+        set({
+          position: initialPos,
+          // rotation: [y / aspect, x / aspect, 0],
+        }),
+      // onHover: ({ hovering }) =>
+      //   set({ scale: hovering ? [1.2, 1.2, 1.2] : [1, 1, 1] }),
+    },
+    {
+      initial: () => {
+        console.log(spring.position.get());
+        const init = spring.position.get();
+        return [init.x, init.y];
+      },
+    }
+  );
+  return (
+    <animated.mesh
+      {...spring}
+      {...bind()}
+      ref={testRef}
+      raycast={useCamera(cam)}
+      castShadow
+      receiveShadow
+      geometry={nodes.lower_disk.geometry}
+      material={materials.Gray}
+      // position={[0, 0.51, 1]}
+      // position={[size.width / 2 - 100, size.height / 2 - 300, -200]}
+      // rotation={[0.4, 0.5, 0.4]}
+    />
+  );
+};
 
 export const InvPuzzleBox = (props) => {
   const group = useRef();
   const [zoomed, setZoomed] = useState(false);
   const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
+  const { cam } = props;
+  const { size, viewport } = useThree();
   const hinge = useRef();
-  const { size } = props;
 
   useFrame(() => {
     if (zoomed) {
@@ -33,25 +89,11 @@ export const InvPuzzleBox = (props) => {
     config: { mass: 0.2, friction: 2, tension: 23 },
   });
 
-  const RingOne = () => {
-    return (
-      <mesh
-        scale={100}
-        castShadow
-        receiveShadow
-        geometry={nodes.lower_disk.geometry}
-        material={materials.Gray}
-        // position={[0, 0.51, 1]}
-        position={[size.width / 2 - 100, size.height / 2 - 300, -200]}
-        rotation={[0.4, 0.5, 0.4]}
-      />
-    );
-  };
-
   const RingTwo = () => {
     return (
       <mesh
         scale={100}
+        raycast={useCamera(cam)}
         castShadow
         receiveShadow
         geometry={nodes.upper_disk.geometry}
@@ -72,11 +114,10 @@ export const InvPuzzleBox = (props) => {
     e.stopPropagation();
     console.log('clicked the top');
   };
-  const { cam } = props;
 
   return (
     <>
-      <RingOne />
+      <RingOne cam={cam} />
       <RingTwo />
       <animated.group
         {...props}
