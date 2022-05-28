@@ -29,6 +29,7 @@ export default function Inventory() {
         ref={virtualCam}
         makeDefault={false}
         position={[0, 0, 500]}
+        far={5000}
         // position={[(size.width / 10) * 8.5, (size.height / 10) * 8, 300]}
       />
       <InvPuzzleBox

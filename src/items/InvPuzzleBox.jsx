@@ -8,7 +8,9 @@ import { useSpring, animated, config } from '@react-spring/three';
 import { useStore } from '../state';
 
 const RingOne = ({ cam }) => {
-  const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
+  // const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
+  const { nodes, materials } = useGLTF("/lower_disk.glb");
+
 
   const startDragging = useStore((state) => state.startDragging);
   const stopDragging = useStore((state) => state.stopDragging);
@@ -64,7 +66,7 @@ const RingOne = ({ cam }) => {
       raycast={useCamera(cam)}
       castShadow
       receiveShadow
-      geometry={nodes.lower_disk.geometry}
+      geometry={nodes.lower_Disk.geometry}
       material={materials.Gray}
       visible={!ringOne.installed}
       // position={[0, 0.51, 1]}
@@ -77,6 +79,9 @@ const RingOne = ({ cam }) => {
 export const InvPuzzleBox = (props) => {
   const group = useRef();
   const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
+  const lowerDisk = useGLTF("/lower_disk.glb");
+  const [lowerRotation, setLowerRotation] = useState(Math.PI);
+
   const { cam } = props;
   const { size } = useThree();
   const hinge = useRef();
@@ -86,6 +91,7 @@ export const InvPuzzleBox = (props) => {
   const openInventory = useStore((state) => state.openInventory);
   const ringOne = useStore((state) => state.ringOne);
   const installRingOne = useStore((state) => state.installRingOne);
+  const setText = useStore((state) => state.setText);
 
   useFrame(() => {
     if (inventory.open && !dragging.inProgress) {
@@ -94,11 +100,16 @@ export const InvPuzzleBox = (props) => {
   });
 
   const { scale, position, rotation } = useSpring({
-    scale: inventory.open ? 250 : 45,
+    scale: invent ory.open ? 250 : 45,
     position: inventory.open ? [0, 0, -300] : props.position,
     rotation: inventory.open ? [0.2, 0.5, 0] : [0.2, 0.5, 0],
     config: { mass: 0.2, friction: 2, tension: 23 },
   });
+
+  const lowerRing = useSpring({
+    rotation: [0, lowerRotation + Math.Pi/2, 0],
+    config: { mass: 0.2, friction: 2, tension: 23 },
+  })
 
   const sphere = useSpring({
     scale: inventory.open ? 10 : 1,
@@ -127,6 +138,7 @@ export const InvPuzzleBox = (props) => {
     e.stopPropagation();
     console.log('clicked the box');
     !inventory.open && openInventory();
+    !inventory.open &&setText(["I examine the box."]);
   };
 
   const hingeHandler = (e) => {
@@ -218,11 +230,11 @@ export const InvPuzzleBox = (props) => {
             raycast={useCamera(cam)}
             castShadow
             receiveShadow
-            geometry={nodes.lower_disk.geometry}
+            geometry={lowerDisk.nodes.lower_Disk.geometry}
             material={materials.Gray}
             position={[0, 0.51, 1]}
             visible={ringOne.installed}
-            rotation={[0, Math.PI, 0]}
+            rotation={[0, lowerRotation, 0]}
             // position={[size.width / 2 - 100, size.height / 2 - 300, -200]}
             // rotation={[0.4, 0.5, 0.4]}
           />
@@ -288,7 +300,7 @@ export const InvPuzzleBox = (props) => {
         raycast={useCamera(cam)}
         onClick={(e) => e.stopPropagation()} //this works??
       >
-        <sphereGeometry args={[-80, 16, 16]} />
+        <sphereGeometry args={[-120, 16, 16]} />
         <meshStandardMaterial color={inventory.open ? 'hotpink' : 'white'} />
       </animated.mesh>
     </>
