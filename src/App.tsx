@@ -14,6 +14,7 @@ import PrinterScreen from './PrinterScreen';
 import Notebook from './Notebook';
 import ComputerScreen from './ComputerScreen';
 import Inventory from './items/Inventory';
+import CongratsScreen from './CongratsScreen';
 
 function App() {
   const [currentObj, setCurrentObj] = useState('none');
@@ -25,6 +26,7 @@ function App() {
   const setText = useStore((state) => state.setText);
   const dragging = useStore((state) => state.dragging);
   const inventory = useStore((state) => state.inventory);
+  const won = useStore((state) => state.won);
 
   const closeInventory = useStore((state) => state.closeInventory);
 
@@ -61,6 +63,7 @@ function App() {
         <Notebook />
         <PrinterScreen />
         <ComputerScreen />
+        {won && <CongratsScreen />}
         <Canvas dpr={[1, 2]} shadows>
           <spotLight
             castShadow

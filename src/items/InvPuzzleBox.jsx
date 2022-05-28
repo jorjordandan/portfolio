@@ -66,7 +66,7 @@ const RingOne = ({ cam }) => {
       receiveShadow
       geometry={nodes.lower_Disk.geometry}
       material={materials.Gray}
-      visible={!ringOne.installed}
+      visible={ringOne.collected && !ringOne.installed}
       // position={[0, 0.51, 1]}
       // position={[size.width / 2 - 100, size.height / 2 - 300, -200]}
       // rotation={[0.4, 0.5, 0.4]}
@@ -133,7 +133,7 @@ const RingTwo = ({ cam }) => {
       receiveShadow
       geometry={nodes.upper_disk.geometry}
       material={materials['Gray.001']}
-      visible={!ringTwo.installed}
+      visible={ringTwo.collected && !ringTwo.installed}
     />
   );
 };
@@ -158,11 +158,16 @@ export const InvPuzzleBox = (props) => {
   const installRingOne = useStore((state) => state.installRingOne);
   const installRingTwo = useStore((state) => state.installRingTwo);
   const setText = useStore((state) => state.setText);
+  const setWon = useStore((state) => state.setWon);
+  const puzzle = useStore((state) => state.puzzle);
   const rotations = [0, Math.PI / 2, Math.PI, Math.PI + Math.PI / 2];
+
+  console.log(ringTwo);
 
   if (lowerRotation + upperRotation === 0) {
     console.log('you win');
     !boxOpen && setBoxOpen(true);
+    setWon();
   }
 
   useFrame(() => {
@@ -203,6 +208,7 @@ export const InvPuzzleBox = (props) => {
 
   const handleLowerRingClick = (e) => {
     e.stopPropagation();
+    if (!ringOne.installed) return;
     if (lowerRotation === 3) {
       setLowerRotation(0);
     } else {
@@ -212,6 +218,7 @@ export const InvPuzzleBox = (props) => {
 
   const handleUpperRingClick = (e) => {
     e.stopPropagation();
+    if (!ringTwo.installed) return;
     if (upperRotation === 3) {
       setUpperRotation(0);
     } else {
@@ -232,7 +239,10 @@ export const InvPuzzleBox = (props) => {
   };
 
   const hoverHandler = () => {
-    dragging.item === 'RingOne' && installRingOne();
+    if (dragging.item === 'RingOne') {
+      installRingOne();
+      setText(['hmm looks like something else needs to go here as well...']);
+    }
 
     if (dragging.item === 'RingTwo' && ringOne.installed) {
       installRingTwo();
@@ -251,6 +261,7 @@ export const InvPuzzleBox = (props) => {
         position={position}
         dispose={null}
         ref={group}
+        visible={puzzle.inInventory}
       >
         <mesh
           castShadow
@@ -398,6 +409,7 @@ export const InvPuzzleBox = (props) => {
         position={sphere.position}
         raycast={useCamera(cam)}
         onClick={(e) => e.stopPropagation()}
+        visible={puzzle.inInventory}
       >
         <sphereGeometry args={[-120, 16, 16]} />
         <meshStandardMaterial color={inventory.open ? 'hotpink' : 'white'} />

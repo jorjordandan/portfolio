@@ -5,11 +5,14 @@ export default function PrinterScreen() {
   const screen = useStore((state) => state.screen);
   const hideScreen = useStore((state) => state.hideScreen);
   const printObject = useStore((state) => state.printObject);
-  const [selected, setSelected] = useState('airplane');
+  const sdCard = useStore((state) => state.sdCard);
+  const printer = useStore((state) => state.printer);
+  const [selected, setSelected] = useState('ringOne');
+
   // console.log(screen);
 
   const handlePrintObject = () => {
-    printObject('ringOne');
+    printObject(selected);
     hideScreen();
   };
 
@@ -22,25 +25,26 @@ export default function PrinterScreen() {
           </div>
           <div className='screen-title'>ANYCUBIC MEGA S</div>
           <div>Files to print:</div>
-          <div
-            className={selected === 'airplane' ? 'selected' : ''}
-            onClick={() => setSelected('airplane')}
-          >
-            strange_medallion_lg.gcode
-          </div>
-          {screen.keyLoaded && (
+          {!printer.printed.includes('ringOne') && (
             <div
-              className={selected === 'handle' ? 'selected' : ''}
-              onClick={() => setSelected('handle')}
+              className={selected === 'ringOne' ? 'selected' : ''}
+              onClick={() => setSelected('ringOne')}
             >
-              strange_medallion_sm.gcode
+              LARGE_strange_medallion.gcode
+            </div>
+          )}
+          {sdCard.installed && !printer.printed.includes('ringTwo') && (
+            <div
+              className={selected === 'ringTwo' ? 'selected' : ''}
+              onClick={() => setSelected('ringTwo')}
+            >
+              SMALL_strange_medallion.gcode
             </div>
           )}
           <div className='button-container'>
             <div className='screen-button' onClick={handlePrintObject}>
               Print Object...
             </div>
-            <div className='screen-button inactive'>Load Object...</div>
           </div>
         </div>
       )}

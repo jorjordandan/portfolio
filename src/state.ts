@@ -32,10 +32,8 @@ interface State {
 
   computerScreen: {
     visible: boolean;
-    // handleLoaded: boolean;
-    // keyInserted: boolean;
-    // keyLoaded: boolean;
   };
+
   showComputerScreen: () => void;
   hideComputerScreen: () => void;
 
@@ -61,9 +59,11 @@ interface State {
   };
   collectPuzzle: () => void;
 
-  ringOne: { installed: boolean };
+  ringOne: { collected: boolean; installed: boolean };
+  collectRingOne: () => void;
   installRingOne: () => void;
-  ringTwo: { installed: boolean };
+  ringTwo: { collected: boolean; installed: boolean };
+  collectRingTwo: () => void;
   installRingTwo: () => void;
 
   // 3d printable airplan
@@ -84,6 +84,9 @@ interface State {
   dragging: { inProgress: boolean; item: string };
   startDragging: (item: string) => void;
   stopDragging: () => void;
+
+  won: boolean;
+  setWon: () => void;
 }
 
 interface IButton {
@@ -94,6 +97,10 @@ interface IButton {
 }
 
 export const useStore = create<State>((set) => ({
+  //final win state.
+  won: false,
+  setWon: () => set((state) => ({ won: true })),
+
   dragging: { inProgress: false, item: 'none' },
   startDragging: (item: string) =>
     set((state) => ({ dragging: { inProgress: true, item: item } })),
@@ -110,10 +117,12 @@ export const useStore = create<State>((set) => ({
     set((state) => ({ printer: { ...state.printer, power: true } })),
   printObject: (item) =>
     set((state) => ({
-      printer: { ...state.printer, items: [...state.printer.printed, item] },
+      printer: { ...state.printer, printed: [...state.printer.printed, item] },
     })),
 
-  text: ['Welcome to my ~point and cli~ office :)'],
+  text: [
+    'Welcome to my ~point and cli~ office :) I was just tryin to figure out how to open that mysterious box on my desk.',
+  ],
   setText: (text: string[]) => set({ text }),
 
   button: undefined,
@@ -146,9 +155,7 @@ export const useStore = create<State>((set) => ({
   notebook: {
     visible: false,
   },
-
   showNotebook: () => set((state) => ({ notebook: { visible: true } })),
-
   hideNotebook: () => set((state) => ({ notebook: { visible: false } })),
 
   inventory: {
@@ -167,6 +174,7 @@ export const useStore = create<State>((set) => ({
       },
     }));
   },
+
   puzzle: {
     inInventory: false,
     visible: true,
@@ -174,17 +182,22 @@ export const useStore = create<State>((set) => ({
   collectPuzzle: () =>
     set((state) => ({ puzzle: { inInventory: true, visible: false } })),
 
-  ringOne: { installed: false },
-  installRingOne: () => set((state) => ({ ringOne: { installed: true } })),
+  ringOne: { collected: false, installed: false },
+  installRingOne: () =>
+    set((state) => ({ ringOne: { ...state.ringOne, installed: true } })),
+  collectRingOne: () =>
+    set((state) => ({ ringOne: { ...state.ringOne, collected: true } })),
 
-  ringTwo: { installed: false },
-  installRingTwo: () => set((state) => ({ ringTwo: { installed: true } })),
+  ringTwo: { collected: false, installed: false },
+  installRingTwo: () =>
+    set((state) => ({ ringTwo: { ...state.ringTwo, installed: true } })),
+  collectRingTwo: () =>
+    set((state) => ({ ringTwo: { ...state.ringTwo, collected: true } })),
 
   sdCard: {
     collected: false,
     installed: false,
   },
-
   collectSdCard: () =>
     set((state) => ({ sdCard: { ...state.sdCard, collected: true } })),
   installSdCard: () =>
