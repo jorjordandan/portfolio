@@ -2,12 +2,14 @@ import { useStore } from './state.js';
 import { useState } from 'react';
 
 export default function PrinterScreen() {
-  const { screen, hideScreen, printAirplane } = useStore();
+  const screen = useStore((state) => state.screen);
+  const hideScreen = useStore((state) => state.hideScreen);
+  const printObject = useStore((state) => state.printObject);
   const [selected, setSelected] = useState('airplane');
   // console.log(screen);
 
-  const printObject = () => {
-    printAirplane();
+  const handlePrintObject = () => {
+    printObject('ringOne');
     hideScreen();
   };
 
@@ -16,7 +18,7 @@ export default function PrinterScreen() {
       {screen.visible && (
         <div className='printer-screen'>
           <div className='dismiss' onClick={hideScreen}>
-            X
+            X Close
           </div>
           <div className='screen-title'>ANYCUBIC MEGA S</div>
           <div>Files to print:</div>
@@ -35,7 +37,7 @@ export default function PrinterScreen() {
             </div>
           )}
           <div className='button-container'>
-            <div className='screen-button' onClick={printObject}>
+            <div className='screen-button' onClick={handlePrintObject}>
               Print Object...
             </div>
             <div className='screen-button inactive'>Load Object...</div>

@@ -1,21 +1,20 @@
-//cube imports
 import { useMemo, useRef } from 'react';
 import { Scene, Matrix4 } from 'three';
 import { useFrame, useThree, createPortal } from '@react-three/fiber';
 import { OrthographicCamera, useCamera } from '@react-three/drei';
-// import { TestPlane } from './TestPlane';
+import { useStore } from '../state';
 import { InvPuzzleBox } from './InvPuzzleBox';
+import SDCard from './SDCard';
 
 export default function Inventory() {
   const { gl, scene, camera, size } = useThree();
   const virtualScene = useMemo(() => new Scene(), []);
   const virtualCam = useRef();
-  // const ref = useRef();
   const matrix = new Matrix4();
+  const sdCard = useStore((state) => state.sdCard);
 
   useFrame(() => {
     matrix.copy(camera.matrix).invert();
-    // ref.current.quaternion.setFromRotationMatrix(matrix);
     gl.autoClear = true;
     gl.render(scene, camera);
     gl.autoClear = false;
@@ -30,23 +29,20 @@ export default function Inventory() {
         makeDefault={false}
         position={[0, 0, 500]}
         far={5000}
-        // position={[(size.width / 10) * 8.5, (size.height / 10) * 8, 300]}
       />
+
       <InvPuzzleBox
         matrix={matrix}
         cam={virtualCam}
         position={[size.width / 2 - 100, size.height / 2 - 100, -200]}
         rotation={[0.2, 0.5, 0]}
       />
+      <SDCard
+        matrix={matrix}
+        cam={virtualCam}
+        visible={sdCard.collected && !sdCard.installed}
+      />
 
-      {/* <mesh
-        ref={ref}
-        raycast={useCamera(virtualCam)}
-        position={[size.width / 2 - 100, size.height / 2 - 100, -300]}
-        onClick={() => console.log('sphere click')} //this works
-      >
-        {<sphereGeometry args={[-100, 16, 16]} />}
-      </mesh> */}
       <ambientLight intensity={2} />
       <directionalLight position={[10, 100, 10]} intensity={3} />
     </>,

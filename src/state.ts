@@ -16,8 +16,9 @@ interface State {
   moveDeskUp: () => void;
 
   //3d printer
-  printer: { power: boolean };
+  printer: { power: boolean; printed: string[] };
   powerOnPrinter: () => void;
+  printObject: (object: string) => void;
 
   // 3d printer screen
   screen: {
@@ -73,6 +74,13 @@ interface State {
   printAirplane: () => void;
   collectAirplane: () => void;
 
+  sdCard: {
+    collected: boolean;
+    installed: boolean;
+  };
+  collectSdCard: () => void;
+  installSdCard: () => void;
+
   dragging: { inProgress: boolean; item: string };
   startDragging: (item: string) => void;
   stopDragging: () => void;
@@ -97,9 +105,13 @@ export const useStore = create<State>((set) => ({
   moveDeskUp: () => set((state) => ({ desk: { ...state.desk, up: true } })),
   moveDeskDown: () => set((state) => ({ desk: { ...state.desk, up: false } })),
 
-  printer: { power: false },
+  printer: { power: false, printed: [''] },
   powerOnPrinter: () =>
     set((state) => ({ printer: { ...state.printer, power: true } })),
+  printObject: (item) =>
+    set((state) => ({
+      printer: { ...state.printer, items: [...state.printer.printed, item] },
+    })),
 
   text: ['Welcome to my ~point and cli~ office :)'],
   setText: (text: string[]) => set({ text }),
@@ -167,6 +179,16 @@ export const useStore = create<State>((set) => ({
 
   ringTwo: { installed: false },
   installRingTwo: () => set((state) => ({ ringTwo: { installed: true } })),
+
+  sdCard: {
+    collected: false,
+    installed: false,
+  },
+
+  collectSdCard: () =>
+    set((state) => ({ sdCard: { ...state.sdCard, collected: true } })),
+  installSdCard: () =>
+    set((state) => ({ sdCard: { ...state.sdCard, installed: true } })),
 
   airplane: {
     printed: false,

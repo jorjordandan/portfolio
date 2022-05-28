@@ -1,10 +1,8 @@
 import { useStore } from './state.js';
-import { useState } from 'react';
 
 export default function Notebook() {
-  const { notebook, hideNotebook } = useStore();
-  // const [selected, setSelected] = useState('airplane');
-  // console.log(screen);
+  const notebook = useStore((state) => state.notebook);
+  const hideNotebook = useStore((state) => state.hideNotebook);
 
   return (
     <>
@@ -16,11 +14,7 @@ export default function Notebook() {
               Close X
             </div>
             <div className='screen-title'>ULTRA SECRET NOTES</div>
-            <div>Note to self: You can do it!</div>
-            <div>
-              Computer password (Missy Elliot encrypted to prevent sneaky
-              people):
-            </div>
+            <div>Computer password (Missy Elliot encryption FTW):</div>
             <div className='missy'>12345drowssap</div>
             <div>
               Secret email address:
@@ -31,13 +25,8 @@ export default function Notebook() {
             </div>
             <div>
               Secret twitter:<a href='https://twitter.com/jrdndvs'>@jrdndvs</a>
+              <div>Note to self: You can do it!</div>
             </div>
-            {/* <div className='button-container'>
-              <div className='screen-button' onClick={() => {}}>
-                Print Object...
-              </div>
-              <div className='screen-button inactive'>Load Object...</div>
-            </div> */}
           </div>
           <div className='pageMiddle'></div>
           <div className='page right'>

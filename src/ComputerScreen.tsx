@@ -4,7 +4,11 @@ import { useState, useEffect } from 'react';
 export default function ComputerScreen() {
   const [loginMessage, setLoginMessage] = useState('');
   const [screen, setScreen] = useState(1);
-  const { hideComputerScreen, computerScreen } = useStore();
+  const hideComputerScreen = useStore((state) => state.hideComputerScreen);
+  const computerScreen = useStore((state) => state.computerScreen);
+  const collectSdCard = useStore((state) => state.collectSdCard);
+  const sdCard = useStore((state) => state.sdCard);
+  const setText = useStore((state) => state.setText);
   // console.log(computerScreen.visible);
 
   useEffect(() => {
@@ -33,6 +37,12 @@ export default function ComputerScreen() {
     }
   };
 
+  const getSDCard = () => {
+    setText(['You load the file and unplug the SD Card....']);
+    collectSdCard();
+    hideComputerScreen();
+  };
+
   const ScreenOne = () => {
     return (
       <div className='computer-screen'>
@@ -57,7 +67,7 @@ export default function ComputerScreen() {
     return (
       <div className='computer-screen two'>
         <div className='computer-dismiss' onClick={hideComputerScreen}>
-          close Xe
+          close X
         </div>
         <div className='fake-cura'>
           <div className='cura-app-bar'>
@@ -70,14 +80,19 @@ export default function ComputerScreen() {
           </div>
           <div className='cura-body'>
             <div className='body-title'>Slicing complete.</div>
-            <div className='body-text'>
-              Medallion_lower.stl is ready to download for 3d printing. Would
-              you like to load it onto the usb key?
-            </div>
-            <div className='body-button'>Yeah, for sure, load it up!</div>
+            {!sdCard.collected && (
+              <>
+                <div className='body-text'>
+                  Medallion_lower.stl is ready to download for 3d printing.
+                  Would you like to load it onto the usb key?
+                </div>
+                <div className='body-button' onClick={getSDCard}>
+                  Load it up!
+                </div>
+              </>
+            )}
           </div>
         </div>
-        <div>This is a completely different screen, man.</div>
       </div>
     );
   };
