@@ -17,7 +17,11 @@ export default function Notebook() {
             </div>
             <div className='screen-title'>ULTRA SECRET NOTES</div>
             <div>Note to self: You can do it!</div>
-            <div>Unguessable computer password: password54321</div>
+            <div>
+              Computer password (Missy Elliot encrypted to prevent sneaky
+              people):
+            </div>
+            <div className='missy'>12345drowssap</div>
             <div>
               Secret email address:
               <a href='mailto:jordan@jordandavis.ca?subject=I want to give you money for no reason!'>

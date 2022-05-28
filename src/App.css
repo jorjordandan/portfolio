@@ -11,15 +11,16 @@
 
 .text-display {
   position: absolute;
-  bottom: 75px;
+  bottom: 30px;
   left: 50%;
   font-family: monospace;
   transform: translate(-50%, 0);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
+  background-color: rgba(218, 201, 201, 0.9);
+  color: rgb(48, 21, 21);
   padding: 10px;
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: bold;
+  border: 3px solid rgb(48, 21, 21);
   border-radius: 5px;
   z-index: 100;
   pointer-events: none;
@@ -34,15 +35,15 @@
 
 .button {
   position: absolute;
-  bottom: 25px;
-  left: 50%;
+  bottom: 5px;
+  left: 60%;
   font-family: monospace;
   transform: translate(-50%, 0);
-  background-color: rgba(155, 0, 0, 0.5);
+  background-color: rgb(48, 21, 21);
   border: none;
   color: #fff;
   padding: 10px;
-  font-size: 20px;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 5px;
   z-index: 100;
@@ -134,6 +135,12 @@
   border: none;
 }
 
+.missy {
+  transform: rotate(180deg);
+  font-family: monospace;
+  font-size: 1.5em;
+}
+
 .page.left {
   border-radius: 10px 0px 0px 10px;
 }
@@ -214,7 +221,6 @@
   align-items: center;
   width: 50%;
   bottom: 50%;
-  aspect-ratio: 16 / 9;
   left: 50%;
   font-family: sans-serif;
   transform: translate(-50%, 50%);
@@ -304,4 +310,24 @@
 .body-button:hover {
   background-color: #999;
   cursor: pointer;
+}
+
+.inventory-close {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  width: 10vw;
+  top: 10px;
+  right: 1vw;
+  font-family: sans-serif;
+  transform: translate(-50%, 50%);
+  background-color: rgb(255, 255, 255);
+  color: #555;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 20px;
+  z-index: 100;
 }

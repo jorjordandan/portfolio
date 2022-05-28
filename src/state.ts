@@ -47,9 +47,11 @@ interface State {
   // inventory system
   inventory: {
     items: string[];
+    open: boolean;
   };
+  openInventory: () => void;
+  closeInventory: () => void;
   addToInventory: (item: string) => void;
-
 
   //puzzle box
   puzzle: {
@@ -58,6 +60,11 @@ interface State {
   };
   collectPuzzle: () => void;
 
+  ringOne: { installed: boolean };
+  installRingOne: () => void;
+  ringTwo: { installed: boolean };
+  installRingTwo: () => void;
+
   // 3d printable airplan
   airplane: {
     printed: boolean;
@@ -65,6 +72,10 @@ interface State {
   };
   printAirplane: () => void;
   collectAirplane: () => void;
+
+  dragging: { inProgress: boolean; item: string };
+  startDragging: (item: string) => void;
+  stopDragging: () => void;
 }
 
 interface IButton {
@@ -75,6 +86,12 @@ interface IButton {
 }
 
 export const useStore = create<State>((set) => ({
+  dragging: { inProgress: false, item: 'none' },
+  startDragging: (item: string) =>
+    set((state) => ({ dragging: { inProgress: true, item: item } })),
+  stopDragging: () =>
+    set((state) => ({ dragging: { inProgress: false, item: 'none' } })),
+
   desk: { power: false, up: false },
   powerOnDesk: () => set((state) => ({ desk: { ...state.desk, power: true } })),
   moveDeskUp: () => set((state) => ({ desk: { ...state.desk, up: true } })),
@@ -84,7 +101,7 @@ export const useStore = create<State>((set) => ({
   powerOnPrinter: () =>
     set((state) => ({ printer: { ...state.printer, power: true } })),
 
-  text: ['Welcome to my ~point and cli~ normal office :)'],
+  text: ['Welcome to my ~point and cli~ office :)'],
   setText: (text: string[]) => set({ text }),
 
   button: undefined,
@@ -124,26 +141,38 @@ export const useStore = create<State>((set) => ({
 
   inventory: {
     items: [],
+    open: false,
   },
+  openInventory: () =>
+    set((state) => ({ inventory: { ...state.inventory, open: true } })),
+  closeInventory: () =>
+    set((state) => ({ inventory: { ...state.inventory, open: false } })),
   addToInventory: (item: string) => {
     set((state) => ({
       inventory: {
+        ...state.inventory,
         items: [...state.inventory.items, item],
       },
     }));
   },
   puzzle: {
-  inInventory: false,
-  visible: true,
+    inInventory: false,
+    visible: true,
   },
-  collectPuzzle: () => set((state) => ({ puzzle: { inInventory: true, visible: false } })),
-  
-  
+  collectPuzzle: () =>
+    set((state) => ({ puzzle: { inInventory: true, visible: false } })),
+
+  ringOne: { installed: false },
+  installRingOne: () => set((state) => ({ ringOne: { installed: true } })),
+
+  ringTwo: { installed: false },
+  installRingTwo: () => set((state) => ({ ringTwo: { installed: true } })),
+
   airplane: {
     printed: false,
     inInventory: false,
   },
-  
+
   collectAirplane: () => {
     set((state) => ({ airplane: { ...state.airplane, inInventory: true } }));
   },

@@ -18,9 +18,15 @@ import Inventory from './items/Inventory';
 function App() {
   const [currentObj, setCurrentObj] = useState('none');
   const [currentTextIdx, setCurrentTextIdx] = useState(0);
-  const { text, button, hideButton, setText, airplane } = useStore(
-    (state) => state
-  );
+
+  const text = useStore((state) => state.text);
+  const button = useStore((state) => state.button);
+  const hideButton = useStore((state) => state.hideButton);
+  const setText = useStore((state) => state.setText);
+  const dragging = useStore((state) => state.dragging);
+  const inventory = useStore((state) => state.inventory);
+
+  const closeInventory = useStore((state) => state.closeInventory);
 
   const printText = (inText: string[], item: string) => {
     if (inText.length === 1) {
@@ -47,6 +53,11 @@ function App() {
       <Suspense>
         <Typer dataText={text} />
         {button && <Button {...button} />}
+        {inventory.open && (
+          <div className='inventory-close' onClick={closeInventory}>
+            Close
+          </div>
+        )}
         <Notebook />
         <PrinterScreen />
         <ComputerScreen />
@@ -73,8 +84,9 @@ function App() {
             minPolarAngle={Math.PI / 3}
             maxAzimuthAngle={Math.PI / 3}
             minAzimuthAngle={-Math.PI / 3}
-            enableZoom={true}
+            enableZoom={false}
             enablePan={false}
+            enabled={!dragging.inProgress}
           />
           <PerspectiveCamera makeDefault fov={50} position={[0, 0, 4]} />
         </Canvas>

@@ -1,5 +1,5 @@
-import {useStore} from "./state.js";
-import { useState} from "react";
+import { useStore } from './state.js';
+import { useState } from 'react';
 
 export default function PrinterScreen() {
   const { screen, hideScreen, printAirplane } = useStore();
@@ -24,14 +24,14 @@ export default function PrinterScreen() {
             className={selected === 'airplane' ? 'selected' : ''}
             onClick={() => setSelected('airplane')}
           >
-            airplane.gcode
+            strange_medallion_lg.gcode
           </div>
           {screen.keyLoaded && (
             <div
               className={selected === 'handle' ? 'selected' : ''}
               onClick={() => setSelected('handle')}
             >
-              handle.gcode
+              strange_medallion_sm.gcode
             </div>
           )}
           <div className='button-container'>

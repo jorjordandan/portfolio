@@ -10,7 +10,7 @@ export default function Inventory() {
   const { gl, scene, camera, size } = useThree();
   const virtualScene = useMemo(() => new Scene(), []);
   const virtualCam = useRef();
-  const ref = useRef();
+  // const ref = useRef();
   const matrix = new Matrix4();
 
   useFrame(() => {

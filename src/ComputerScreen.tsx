@@ -5,7 +5,7 @@ export default function ComputerScreen() {
   const [loginMessage, setLoginMessage] = useState('');
   const [screen, setScreen] = useState(1);
   const { hideComputerScreen, computerScreen } = useStore();
-  console.log(computerScreen.visible);
+  // console.log(computerScreen.visible);
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
