@@ -1,11 +1,11 @@
 # Jordan's Office, a 3d point and click mini-game
 
-This is amini point and click adventure set in my office built with react-three-fiber, drei, zustand, react-spring, and also use-sound. 
+This is a mini point and click adventure set in my office built with react-three-fiber, drei, zustand, react-spring, and also use-sound. 
 
 ## Workflow
 The workflow for building it was to create a main scene in blender, import models, apply transformations, and then export to gltf. That way, when I imported them they were automatically in the correct location. I will probably add more items in the future, as it's a very simple process.
 
-I also used a portal for the inventory UI, which created a few problems and required a little bit of troubleshooting, but works pretty well. The code for the portal is in the 'items/inventory.jsx' file.
+I also used a portal for the inventory UI, which created a few interesting problems and required a little bit of troubleshooting, but works pretty well. The code for the portal is in the 'items/inventory.jsx' file. Apparently you need to manually attach a raycaster to each item you want events on in a portal for some reason.
 
 ## Why react-three-fiber?
 React Three Fiber is much much more than just a library to use three.js with react. It uses the reconciler to transform your react jsx into three code, so it's not an abstraction over three.js - it's always the whole thing. However, it also comes with a bunch of extra features, my favourite of which is the event system. React-three-fiber allows you to use normal dom events like onClick and onPointerOver on your three js elements, which means you can use normal web development code for interactivity. Drei is another library that adds a large collection of tools for use with three.
