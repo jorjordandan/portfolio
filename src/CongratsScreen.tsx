@@ -17,7 +17,8 @@ export default function CongratsScreen() {
 
           <div>
             Why it's a link to github where you can see the everything from this
-            project.
+            project. <br />
+            <a href="https://github.com/jorjordandan/portfolio">https://github.com/jorjordandan/portfolio</a>
           </div>
 
           <div className='button-container'>
