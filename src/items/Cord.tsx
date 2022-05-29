@@ -29,6 +29,7 @@ export function CordPlugged(props) {
 export function Outlet(props) {
 	const group = useRef();
 	const { nodes, materials } = useGLTF("/cord.glb");
+  
   return (
     <group ref={group} {...props} dispose={null}>
       
@@ -49,12 +50,15 @@ export function Outlet(props) {
 export function CordFloor(props) {
   const { powerOnDesk, desk: deskState, setButton, hideButton, setText } = useStore();
   const {printText} = props;
+  const playSound = useStore((state) => state.playSound);
+
   const floorPlugClick = () => {
     printText(texts.floorPlug, "floorPlug");
     setButton({
       text: "Plug in cord",
       click: powerOnDesk,
-      afterClick: () => setText(["Okay it's plugged in now."]),
+      afterClick: () =>{ setText(["Okay it's plugged in now."]);
+    playSound("deskPower")},
       hideButton: hideButton,
     });
   };

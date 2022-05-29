@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { useCamera } from '@react-three/drei';
-import React, { useRef } from 'react';
-import { useGesture } from '@use-gesture/react';
-import { useGLTF } from '@react-three/drei';
-import { useSpring, animated, config } from '@react-spring/three';
-import { useStore } from '../state';
+import { useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useCamera } from "@react-three/drei";
+import React, { useRef } from "react";
+import { useGesture } from "@use-gesture/react";
+import { useGLTF } from "@react-three/drei";
+import { useSpring, animated, config } from "@react-spring/three";
+import { useStore } from "../state";
 
 const RingOne = ({ cam }) => {
-  const { nodes, materials } = useGLTF('/lower_disk.glb');
+  const { nodes, materials } = useGLTF("/lower_disk.glb");
 
   const startDragging = useStore((state) => state.startDragging);
   const stopDragging = useStore((state) => state.stopDragging);
@@ -29,7 +29,7 @@ const RingOne = ({ cam }) => {
   const bind = useGesture(
     {
       onDrag: ({ offset: [xa, ya] }) => {
-        startDragging('RingOne');
+        startDragging("RingOne");
         set({
           position: [
             xa + size.width / 2 - 100,
@@ -75,7 +75,7 @@ const RingOne = ({ cam }) => {
 };
 
 const RingTwo = ({ cam }) => {
-  const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
+  const { nodes, materials } = useGLTF("/InvPuzzlebox.glb");
 
   const startDragging = useStore((state) => state.startDragging);
   const stopDragging = useStore((state) => state.stopDragging);
@@ -96,7 +96,7 @@ const RingTwo = ({ cam }) => {
   const bind = useGesture(
     {
       onDrag: ({ down, offset: [xa, ya] }) => {
-        startDragging('RingTwo');
+        startDragging("RingTwo");
         set({
           position: [
             xa + size.width / 2 - 100,
@@ -132,7 +132,7 @@ const RingTwo = ({ cam }) => {
       castShadow
       receiveShadow
       geometry={nodes.upper_disk.geometry}
-      material={materials['Gray.001']}
+      material={materials["Gray.001"]}
       visible={ringTwo.collected && !ringTwo.installed}
     />
   );
@@ -140,8 +140,8 @@ const RingTwo = ({ cam }) => {
 
 export const InvPuzzleBox = (props) => {
   const group = useRef();
-  const { nodes, materials } = useGLTF('/InvPuzzlebox.glb');
-  const lowerDisk = useGLTF('/lower_disk.glb');
+  const { nodes, materials } = useGLTF("/InvPuzzlebox.glb");
+  const lowerDisk = useGLTF("/lower_disk.glb");
   const [lowerRotation, setLowerRotation] = useState(2);
   const [upperRotation, setUpperRotation] = useState(2);
   const [boxOpen, setBoxOpen] = useState(false);
@@ -159,15 +159,19 @@ export const InvPuzzleBox = (props) => {
   const installRingTwo = useStore((state) => state.installRingTwo);
   const setText = useStore((state) => state.setText);
   const setWon = useStore((state) => state.setWon);
+  const won = useStore((state) => state.won);
   const puzzle = useStore((state) => state.puzzle);
+  const playSound = useStore((state) => state.playSound);
+  const setWinWindowVisible = useStore((state) => state.setWinWindowVisible);
+
   const rotations = [0, Math.PI / 2, Math.PI, Math.PI + Math.PI / 2];
 
-  console.log(ringTwo);
-
-  if (lowerRotation + upperRotation === 0) {
-    console.log('you win');
+  if (lowerRotation + upperRotation === 0 && !won) {
     !boxOpen && setBoxOpen(true);
+    !won && setWinWindowVisible(true);
     setWon();
+    playSound('win');
+    setText(["You did it :) Thanks for playing."]);
   }
 
   useFrame(() => {
@@ -211,8 +215,10 @@ export const InvPuzzleBox = (props) => {
     if (!ringOne.installed) return;
     if (lowerRotation === 3) {
       setLowerRotation(0);
+      playSound("clickTwo");
     } else {
       setLowerRotation(lowerRotation + 1);
+      playSound(lowerRotation % 2 === 1 ? "clickTwo" : "clickOne");
     }
   };
 
@@ -221,33 +227,35 @@ export const InvPuzzleBox = (props) => {
     if (!ringTwo.installed) return;
     if (upperRotation === 3) {
       setUpperRotation(0);
+      playSound("clickTwo");
     } else {
       setUpperRotation(upperRotation + 1);
+      playSound(upperRotation % 2 === 1 ? "clickTwo" : "clickOne");
     }
   };
 
   const clickHandler = (e) => {
     e.stopPropagation();
-    console.log('clicked the box');
     !inventory.open && openInventory();
-    !inventory.open && setText(['I examine the box.']);
+    !inventory.open && setText(["I examine the box."]);
   };
 
   const hingeHandler = (e) => {
     e.stopPropagation();
-    console.log('clicked the top');
   };
 
   const hoverHandler = () => {
-    if (dragging.item === 'RingOne') {
+    if (dragging.item === "RingOne") {
       installRingOne();
-      setText(['hmm looks like something else needs to go here as well...']);
+      playSound("click");
+      setText(["hmm looks like something else needs to go here as well..."]);
     }
 
-    if (dragging.item === 'RingTwo' && ringOne.installed) {
+    if (dragging.item === "RingTwo" && ringOne.installed) {
       installRingTwo();
-    } else if (dragging.item === 'RingTwo' && !ringOne.installed) {
-      setText(['Looks like something else needs to go on first....']);
+      playSound("click");
+    } else if (dragging.item === "RingTwo" && !ringOne.installed) {
+      setText(["Looks like something else needs to go on first...."]);
     }
   };
 
@@ -330,7 +338,7 @@ export const InvPuzzleBox = (props) => {
             castShadow
             receiveShadow
             geometry={nodes.upper_disk.geometry}
-            material={materials['Gray.001']}
+            material={materials["Gray.001"]}
             visible={ringTwo.installed}
             position={[0, 0.55, 1]}
             rotation={upperRing.rotation}
@@ -412,10 +420,10 @@ export const InvPuzzleBox = (props) => {
         visible={puzzle.inInventory}
       >
         <sphereGeometry args={[-120, 16, 16]} />
-        <meshStandardMaterial color={inventory.open ? 'hotpink' : 'white'} />
+        <meshStandardMaterial color={inventory.open ? "hotpink" : "white"} />
       </animated.mesh>
     </>
   );
 };
 
-useGLTF.preload('/InvPuzzlebox.glb');
+useGLTF.preload("/InvPuzzlebox.glb");

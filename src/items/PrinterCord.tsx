@@ -24,6 +24,7 @@ export default function PrinterCord(props: JSX.IntrinsicElements["group"]) {
   const group = useRef<THREE.Group>();
   const { nodes, materials } = useGLTF("/printerCord.glb") as GLTFResult;
 	const powered = useStore((state) => state.printer.power);
+  const playSound = useStore(state => state.playSound);
   const {powerOnPrinter, setText, setButton, hideButton, desk: deskState} = useStore();
   const {printText, texts } = props
 
@@ -36,7 +37,8 @@ export default function PrinterCord(props: JSX.IntrinsicElements["group"]) {
       setButton({
         text: "Plug in 3d printer",
         click: powerOnPrinter,
-        afterClick: () => setText(["Okay all set."]),
+        afterClick: () =>{ setText(["Okay all set."]);
+      playSound("printerPower")},
         hideButton: hideButton,
       });
     }

@@ -7,6 +7,61 @@
   top: 0;
   right: 0;
   bottom: 0;
+  font-family: 'Reenie Beanie', cursive;
+  line-height: 1.6;
+
+  background-color: #f8ceec;
+  background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+  
+}
+
+.loader-title {
+  width: 100%;
+  position: absolute;
+  top: 30%;
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 3rem;
+  color: #333;
+  padding: 5px;
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  font-family: 'Reenie Beanie', cursive;
+  font-size: 2rem;
+  height: 40px;
+  overflow: visible;
+  color: #333;
+  padding: 10px;
+  margin: 10rem;
+  margin-bottom: 10rem;
+  border-radius: 20px;
+  transition: all 0.5s ease;
+  background-color: #f8ceec;
+  background-image: linear-gradient(315deg,  #a88beb 0%, #f8ceec 80%,);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+
+}
+
+.music {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  font-size: 2rem;
+  height: 40px;
+  padding: 10px;
+  margin: 1rem;
+  border-radius: 20px;
+  background-color: #f8ceec;
+  background-image: linear-gradient(315deg,  #a88beb 0%, #f8ceec 80%,);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  cursor: pointer;
+
 }
 
 .text-display {
@@ -15,6 +70,7 @@
   left: 50%;
   font-family: monospace;
   transform: translate(-50%, 0);
+
   background-color: rgba(218, 201, 201, 0.9);
   color: rgb(48, 21, 21);
   padding: 10px;
@@ -143,10 +199,12 @@
 
 .page.left {
   border-radius: 10px 0px 0px 10px;
+  overflow: scroll;
 }
 
 .page.right {
   border-radius: 0px 10px 10px 0px;
+  overflow: scroll;
 }
 
 .pageMiddle {
@@ -155,6 +213,20 @@
 
   min-width: 5%;
 }
+
+.license-title{
+  font-family: monospace;
+  font-size: 1em;
+  color: #555;
+  font-weight: bold;
+}
+
+.license-text{
+  font-family: monospace;
+  font-size: .6em;
+  color: #555;
+}
+
 .printer-screen {
   position: absolute;
   display: flex;

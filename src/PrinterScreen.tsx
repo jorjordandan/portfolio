@@ -1,5 +1,5 @@
 import { useStore } from './state.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function PrinterScreen() {
   const screen = useStore((state) => state.screen);
@@ -7,14 +7,23 @@ export default function PrinterScreen() {
   const printObject = useStore((state) => state.printObject);
   const sdCard = useStore((state) => state.sdCard);
   const printer = useStore((state) => state.printer);
+  const playSound = useStore(state => state.playSound);
   const [selected, setSelected] = useState('ringOne');
 
-  // console.log(screen);
 
   const handlePrintObject = () => {
     printObject(selected);
+    playSound('printerPrint');
     hideScreen();
   };
+
+  useEffect( () => {
+
+    if (printer.printed.includes("ringOne")) {
+      setSelected('ringTwo');
+    }
+
+  }, [selected, printer])
 
   return (
     <>

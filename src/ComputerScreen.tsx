@@ -9,7 +9,9 @@ export default function ComputerScreen() {
   const collectSdCard = useStore((state) => state.collectSdCard);
   const sdCard = useStore((state) => state.sdCard);
   const setText = useStore((state) => state.setText);
-  // console.log(computerScreen.visible);
+  const playSound = useStore((state) => state.playSound);
+
+
 
   useEffect(() => {
     let timeout: ReturnType<typeof setTimeout>;
@@ -38,8 +40,9 @@ export default function ComputerScreen() {
   };
 
   const getSDCard = () => {
-    setText(['You load the file and unplug the SD Card....']);
+    setText(['I load the file and unplug the SD Card....']);
     collectSdCard();
+    playSound('pickup');
     hideComputerScreen();
   };
 

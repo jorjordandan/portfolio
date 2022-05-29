@@ -44,26 +44,7 @@ export default function Base(props) {
         />
       </group>
     </group>
-    <group
-      position={[-1.25, 0.01, -0.6]}
-      rotation={[-Math.PI / 2, 0, 0]}
-      scale={[0.12, 0.12, 0.01]}
-    >
-      <group position={[17.63, 1.97, 0]}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Bin_Bin_Shader_0_1.geometry}
-          material={materials.Bin_Shader}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Bin_Bin_Shader_0_2.geometry}
-          material={materials.Bin_Metal}
-        />
-      </group>
-    </group>
+
     <group
       position={[0.87, 0.86, -0.95]}
       rotation={[-Math.PI / 2, -0.01, 0]}

@@ -25,13 +25,13 @@ export function Keeb(props) {
       onClick={keebClick}
     >
       <group rotation={[Math.PI / 2, 0, 0]}>
-        <mesh
+        {/* <mesh
           castShadow
           receiveShadow
           geometry={nodes.Object_10.geometry}
           material={materials['Material.001']}
           position={[-0.26, -0.31, -0.11]}
-        />
+        /> */}
         <group position={[-0.26, -0.28, -0.11]}>
           <mesh
             castShadow
@@ -59,6 +59,7 @@ export function Desktop(props) {
   const moveDeskDown = useStore((state) => state.moveDeskDown);
   const showComputerScreen = useStore((state) => state.showComputerScreen);
   const showNotebook = useStore((state) => state.showNotebook);
+  const playSound = useStore(state => state.playSound);
   const up = deskState.up;
   const { nodes, materials } = useGLTF('/Desktop2.glb');
   const upButtonTexts = texts.desk.upButton;
@@ -85,6 +86,7 @@ export function Desktop(props) {
     }
     if (!deskState.up) {
       moveDeskUp();
+      playSound("deskUp")
       printText(upButtonTexts.on.down);
     }
   };
@@ -96,6 +98,7 @@ export function Desktop(props) {
     }
     if (deskState.up) {
       moveDeskDown();
+      playSound("deskDown")
       printText(downButtonTexts.on.up);
     }
     if (!deskState.up) {
@@ -165,7 +168,7 @@ export function Desktop(props) {
             receiveShadow
             geometry={nodes.up_Button.geometry}
             material={nodes.up_Button.material}
-            position={[0.15, 0.64, -0.51]}
+            position={[0.15, 0.64, -0.50]}
             onClick={handleUpClick}
           />
           <mesh
@@ -173,7 +176,7 @@ export function Desktop(props) {
             receiveShadow
             geometry={nodes.downButton.geometry}
             material={nodes.downButton.material}
-            position={[0.2, 0.64, -0.51]}
+            position={[0.2, 0.64, -0.50]}
             onClick={handleDownClick}
           />
           {deskState.power && (
@@ -182,7 +185,7 @@ export function Desktop(props) {
               receiveShadow
               geometry={nodes.screen.geometry}
               material={materials.ON}
-              position={[0.09, 0.64, -0.51]}
+              position={[0.09, 0.64, -0.50]}
             />
           )}
           <mesh

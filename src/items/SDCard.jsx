@@ -1,16 +1,16 @@
-import * as THREE from 'three';
-import { useState } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { useCamera } from '@react-three/drei';
-import React, { useRef } from 'react';
-import { useGesture } from '@use-gesture/react';
-import { useGLTF } from '@react-three/drei';
-import { useSpring, animated, config } from '@react-spring/three';
-import { useStore } from '../state';
+import * as THREE from "three";
+import { useState } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useCamera } from "@react-three/drei";
+import React, { useRef } from "react";
+import { useGesture } from "@use-gesture/react";
+import { useGLTF } from "@react-three/drei";
+import { useSpring, animated, config } from "@react-spring/three";
+import { useStore } from "../state";
 
 export default function sdcard(props) {
   const group = useRef();
-  const { nodes, materials } = useGLTF('/sdcard.glb');
+  const { nodes, materials } = useGLTF("/sdcard.glb");
   const cam = props.cam;
 
   const startDragging = useStore((state) => state.startDragging);
@@ -31,7 +31,7 @@ export default function sdcard(props) {
   const bind = useGesture(
     {
       onDrag: ({ down, offset: [xa, ya] }) => {
-        startDragging('SDCard');
+        startDragging("SDCard");
         set({
           position: [
             xa + size.width / 2 - 100,
@@ -76,7 +76,7 @@ export default function sdcard(props) {
             raycast={useCamera(cam)}
             receiveShadow
             geometry={nodes.Cube_2.geometry}
-            material={materials['Material.001']}
+            material={materials["Material.001"]}
           />
         </group>
       </animated.group>
@@ -84,4 +84,4 @@ export default function sdcard(props) {
   );
 }
 
-useGLTF.preload('/sdcard.glb');
+useGLTF.preload("/sdcard.glb");

@@ -39,10 +39,9 @@ type GLTFResult = GLTF & {
 
 export default function PuzzleBox(props: JSX.IntrinsicElements['group']) {
   const group = useRef<THREE.Group>();
-  // console.log(props);
   const { texts, printText } = props;
-  const { nodes, materials } = useGLTF('/puzzleBox.glb') as GLTFResult;
-  const { collectPuzzle, hideButton, setButton, addToInventory, puzzle } =
+  const { nodes } = useGLTF('/puzzleBox.glb') as GLTFResult;
+  const { collectPuzzle, hideButton, setButton, addToInventory, puzzle, playSound } =
     useStore();
   const handleClick = () => {
     printText(texts.puzzle);
@@ -50,13 +49,15 @@ export default function PuzzleBox(props: JSX.IntrinsicElements['group']) {
     setButton({
       text: 'Collect box',
       click: collectPuzzle,
-      afterClick: () =>
+      afterClick: () => {
+        playSound("pickup");
         printText([
-          "You pick it up. It feels slightly warm. Actually, it doesn't... but it seems like the kind of thing you should say.",
-        ]),
+          "I pick it up. It feels slightly warm. Actually, it doesn't... but it seems like the kind of thing you should say.",
+        ])},
       hideButton: hideButton,
     });
     addToInventory('puzzle');
+ 
   };
   return (
     <>

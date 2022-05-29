@@ -18,12 +18,14 @@ export default function ThreePrinter({ printText }) {
     showScreen,
     dragging,
     installSdCard,
+    playSound,
   } = useStore();
   const { nodes, materials } = useGLTF('/3d_printer.glb');
 
   const handleHover = () => {
     if (dragging.item === 'SDCard') {
       installSdCard();
+      playSound('click');
       setText(['I install the SD card in the 3d printer. Nice.']);
     }
   };
@@ -37,7 +39,7 @@ export default function ThreePrinter({ printText }) {
       setButton({
         text: 'Look at screen',
         click: showScreen,
-        afterClick: () => setText(['You look at the screen...']),
+        afterClick: () => setText(['I look at the screen...']),
         hideButton: hideButton,
       });
     }

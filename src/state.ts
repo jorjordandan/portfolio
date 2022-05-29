@@ -5,6 +5,9 @@ interface State {
   text: string[];
   setText: (text: string[]) => void;
 
+  sound: string;
+  playSound: (sound: string) => void;
+
   // button for below text
   button: IButton | undefined;
   setButton: (button: IButton | undefined) => void;
@@ -87,6 +90,9 @@ interface State {
 
   won: boolean;
   setWon: () => void;
+ 
+  winWindowVisible: boolean;
+  setWinWindowVisible: (visible: boolean) => void;
 }
 
 interface IButton {
@@ -96,10 +102,15 @@ interface IButton {
   hideButton: () => void;
 }
 
+
+
 export const useStore = create<State>((set) => ({
   //final win state.
   won: false,
   setWon: () => set((state) => ({ won: true })),
+  
+  winWindowVisible: false,
+  setWinWindowVisible: (visible: boolean) => set((state) => ({ winWindowVisible: visible })),
 
   dragging: { inProgress: false, item: 'none' },
   startDragging: (item: string) =>
@@ -121,9 +132,12 @@ export const useStore = create<State>((set) => ({
     })),
 
   text: [
-    'Welcome to my ~point and cli~ office :) I was just tryin to figure out how to open that mysterious box on my desk.',
+    'Here I am in my office again... hey what\'s that box on my desk?',
   ],
   setText: (text: string[]) => set({ text }),
+
+  sound: "",
+  playSound: (sound: string) => set({sound}),
 
   button: undefined,
   setButton: (button: IButton | undefined) => set({ button }),
