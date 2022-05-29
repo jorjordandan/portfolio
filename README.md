@@ -7,7 +7,10 @@ The workflow for building it was to create a main scene in blender, import model
 
 I also used a portal for the inventory UI, which created a few problems and required a little bit of troubleshooting, but works pretty well. The code for the portal is in the 'items/inventory.jsx' file.
 
-## Typescript
+## Why react-three-fiber?
+React Three Fiber is much much more than just a library to use three.js with react. It uses the reconciler to transform your react jsx into three code, so it's not an abstraction over three.js - it's always the whole thing. However, it also comes with a bunch of extra features, my favourite of which is the event system. React-three-fiber allows you to use normal dom events like onClick and onPointerOver on your three js elements, which means you can use normal web development code for interactivity. Drei is another library that adds a large collection of tools for use with three.
+
+## Typescript... kinda
 I intended to use typescript, but apparently three.js recently removed the type declarations and so the typescript is incomplete, and I sort of didn't worry about it too much. It was very helpful in the zustand state though, as it allowed for autocomplete and types throughout the project.
 
 ## Audio
@@ -20,7 +23,7 @@ Most of the text is in the text.ts file, but I got lazy and started passing text
 Zustand is great - it's incredibly simple and effective. However, I am definitely abusing useStore in this project - I started just returning the entire state in places because I was trying to rush. Again, an easy fix, but it's surprising how it doesn't actually seem to negatively affect performance that much.
 
 ## Performance
-I could do a lot of performance tuning on the react side. There's a ton of unecessary renders happening, and I didn't bother memoing or usecallbacking anything. Again though, there doesn't seem to be any drastic issues. The entire scene is around 100k triangles, and the materials are all just emission mostly. most of the textures are one swatch file.
+I could definitely do a lot of performance tuning on the react side. There's a ton of unecessary renders happening, and I didn't bother memoing or usecallbacking anything. Again though, there doesn't seem to be any drastic issues. The entire scene is around 100k triangles, and the materials are all just emission mostly. most of the textures are one swatch file.
 
 ## Things I'd like to do
 
