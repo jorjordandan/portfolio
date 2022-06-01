@@ -1,0 +1,82 @@
+.loader{
+	position: absolute;
+  flex: 1;
+  justify-content: flex-end;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+  padding: 0;
+  margin: 0;
+  background-color:  #a88beb;
+  text-align: center;
+  height:100vh;
+  font-family: 'Reenie Beanie', cursive;
+  font-weight: 100;
+	z-index: 9999;
+}
+.wrapper{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%); 
+}
+.circle{
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  background-color:  #a88beb;
+  border-radius: 50%;
+  animation: loading 1.5s cubic-bezier(.8, .5, .2, 1.4) infinite;
+  transform-origin: bottom center;
+  position: relative;
+}
+@keyframes loading{
+  0%{
+    transform: translateY(0px);
+    background-color:  #a88beb;
+  }
+  50%{
+    transform: translateY(50px);
+    background-color: #f8ceec;
+  }
+  100%{
+    transform: translateY(0px);
+    background-color:  #a88beb;
+  }
+}
+.circle-1{
+  animation-delay: 0.1s;
+}
+.circle-2{
+  animation-delay: 0.2s;
+}
+.circle-3{
+  animation-delay: 0.3s;
+}
+.circle-4{
+  animation-delay: 0.4s;
+}
+.circle-5{
+  animation-delay: 0.5s;
+}
+.circle-6{
+  animation-delay: 0.6s;
+}
+.circle-7{
+  animation-delay: 0.7s;
+}
+.circle-8{
+  animation-delay: 0.8s;
+}
+
+
+
+
+
+
+
+
+
+
+

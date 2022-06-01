@@ -39,7 +39,7 @@ export default function PrinterScreen() {
               className={selected === 'ringOne' ? 'selected' : ''}
               onClick={() => setSelected('ringOne')}
             >
-              FIRST_strange_medallion.gcode
+              strange medallion.gcode
             </div>
           )}
           {sdCard.installed && !printer.printed.includes('ringTwo') && (
@@ -47,7 +47,7 @@ export default function PrinterScreen() {
               className={selected === 'ringTwo' ? 'selected' : ''}
               onClick={() => setSelected('ringTwo')}
             >
-              ANOTHER_strange_medallion.gcode
+              ANOTHER strange medallion.gcode
             </div>
           )}
           <div className='button-container'>

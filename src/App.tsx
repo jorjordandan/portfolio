@@ -20,15 +20,8 @@ import ComputerScreen from './ComputerScreen';
 import Inventory from './items/Inventory';
 import CongratsScreen from './CongratsScreen';
 import SoundManager from "./SoundManager"
+import{ Loader} from "./Loader";
 
-
-function Loader() {
-  const { progress } = useProgress()
-  return (<>
-  <h2 className="loader-title">Welcome. Optimized for desktop, mobile devices may be janky.<br/> I don't know I haven't honestly checked.</h2>
- <div className="loader" style={{width: progress.toString() + "%",}}>Loading</div>
- </>)
-}
 
 function App() {
   const [currentObj, setCurrentObj] = useState('none');
@@ -91,6 +84,7 @@ function App() {
             Close
           </div>
         )}
+
         <Notebook />
         <PrinterScreen />
         <ComputerScreen />

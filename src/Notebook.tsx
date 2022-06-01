@@ -17,8 +17,8 @@ export default function Notebook() {
             <div>Computer password (Missy Elliot encrypted):</div>
             <div className="missy">12345drowssap</div>
 
-            <div>In case I get amnesia and forget who I am: I'm Jordan Davis, a full stack react/react-native developer.
-              I can build things with react-three-fiber, vite, zustand, react-spring, use-sound, drei, and typescript.
+            <div>In case I get amnesia and forget who I am: <br/>I'm Jordan Davis, a full stack react/react-native developer.
+              I mostly work in react native, but I also like to build things with react-three-fiber, vite, zustand, react-spring, use-sound, drei, and typescript.
                </div>
             <div>
             <div>
@@ -38,7 +38,7 @@ export default function Notebook() {
            {licenses.map((license, idx) => {
              const title = Object.keys(license);
               return (
-                <div key={title[0]}>
+                <div key={title.name}>
                   <div className="license-title">{license.name}</div>
                   <div className="license-text">
                   <a href={license.link}>Model link</a> <br/>

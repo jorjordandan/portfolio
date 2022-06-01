@@ -64,7 +64,7 @@ export default function PrinterCord(props: JSX.IntrinsicElements["group"]) {
         receiveShadow
         geometry={nodes["3dPrinterPlugFloor"].geometry}
         material={nodes["3dPrinterPlugFloor"].material}
-        position={[-0.86, -0.02, -0.73]}
+        position={[-0.86, -0.01, -0.73]}
         rotation={[-Math.PI, 0, -Math.PI]}
 				onClick={printerPlugClick}
       />}
