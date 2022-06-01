@@ -41,7 +41,7 @@ export default function Office({ printText }) {
       <Desktop {...defaults} />
       <ThreePrinter {...defaults} />
       <Chair {...defaults} />
-      <ChairTop {...defaults} />
+      <ChairTop  />
       <Outlet {...defaults} />
       <CordFloor {...defaults} />
       <CordPlugged />

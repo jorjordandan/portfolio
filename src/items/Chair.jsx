@@ -10,12 +10,12 @@ export function ChairTop(props) {
 	const [active, setActive] = useState(false);
 
   const group = useRef();
-  const { nodes, materials } = useGLTF("/chairTop.glb");
+  const { nodes, materials } = useGLTF("/chairTop2.glb");
 
 
 
   const {  rotation} = useSpring({
-    rotation: active ? -2 : -4,
+    rotation: active ? 0 : -2,
     config: {mass: 1,
     friction: 100,
     tension: 170}
@@ -23,73 +23,73 @@ export function ChairTop(props) {
 
   return (
     <group ref={group} {...props} dispose={null} onClick={() => setActive(!active)}>
-      <animated.group position={[-0.36, 0.2, -0.26]}  rotation-y={rotation}>
-      <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder153.geometry}
-          material={materials["gray fabirc mesh"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder153_1.geometry}
-          material={materials["white plastic"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder153_2.geometry}
-          material={materials["black plastic"]}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cylinder153_3.geometry}
-          material={materials["gray pjlastic"]}
-        />
-      </animated.group>
-    </group>
-  );
-}
-
-useGLTF.preload("/chairTop.glb");
-
-
-
-export default function Model(props) {
-  const group = useRef();
-  const { nodes, materials } = useGLTF("/chair3.glb");
-  return (
-    <group ref={group} {...props} dispose={null}>
+    <animated.group position={[-0.36, 0.2, -0.26]} rotation-y={rotation} >
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder015.geometry}
+        geometry={nodes.Cylinder153.geometry}
         material={materials["gray fabirc mesh"]}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder015_1.geometry}
+        geometry={nodes.Cylinder153_1.geometry}
         material={materials["white plastic"]}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder015_2.geometry}
+        geometry={nodes.Cylinder153_2.geometry}
         material={materials["black plastic"]}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder051.geometry}
-        material={materials.rug}
+        geometry={nodes.Cylinder153_3.geometry}
+        material={materials["gray pjlastic"]}
       />
+    </animated.group>
+  </group>
+  );
+}
+
+useGLTF.preload("/chairTop2.glb");
+
+
+
+export default function Model(props) {
+  const group = useRef();
+  const { nodes, materials } = useGLTF("/chair4.glb");
+  return (
+    <group ref={group} {...props} dispose={null}>
+      <group
+        position={[-0.36, 0.2, -0.26]}
+        rotation={[-Math.PI, 0.83, -Math.PI]}
+        scale={[0.034, 0.084, 0.034]}
+      >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Cylinder015.geometry}
+          material={materials["gray fabirc mesh"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Cylinder015_1.geometry}
+          material={materials["white plastic"]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Cylinder015_2.geometry}
+          material={materials["black plastic"]}
+        />
+      </group>
     </group>
   );
 }
 
 
 
-useGLTF.preload("/chair3.glb");
+useGLTF.preload("/chair4.glb");
