@@ -110,5 +110,13 @@ const licenses = [
     lic: "CC-BY-4.0",
     licLink: "http://creativecommons.org/licenses/by/4.0/",
 },
+{
+  name:  "OP1 by Teenage Engineering",
+  link: "https://sketchfab.com/3d-models/op1-by-teenage-engineering-a33b339ba10043dab98c527b1f0a113d",
+  author: "farty" ,
+  authLink:  "https://sketchfab.com/farty",
+  lic: "CC-BY-4.0",
+  licLink: "http://creativecommons.org/licenses/by/4.0/",
+},
    
 ];
