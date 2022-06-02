@@ -10,6 +10,8 @@ import { useStore } from '../state';
 import NotebookClosed from './NotebookClosed';
 import PuzzleBox from "./PuzzleBox";
 
+import OpOne from "./OpOne"
+
 export function Keeb(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF('/Desktop2.glb');
@@ -25,13 +27,7 @@ export function Keeb(props) {
       onClick={keebClick}
     >
       <group rotation={[Math.PI / 2, 0, 0]}>
-        {/* <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Object_10.geometry}
-          material={materials['Material.001']}
-          position={[-0.26, -0.31, -0.11]}
-        /> */}
+
         <group position={[-0.26, -0.28, -0.11]}>
           <mesh
             castShadow
@@ -111,6 +107,7 @@ export function Desktop(props) {
       <group ref={group} {...props} dispose={null}>
         <animated.group position-y={position}>
           <NotebookClosed onClick={showNotebook} />
+          <OpOne />
           <PuzzleBox  {...props} />
           <group
             position={[-0.32, 0.79, -1.03]}

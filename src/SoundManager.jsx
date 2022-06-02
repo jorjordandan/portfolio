@@ -9,7 +9,6 @@ export default function SoundManager() {
 	const currText = useStore(state => state.text);
 	const [audioOn, setAudioOn] = useState(false);
 
-	console.log(currSound);
 	const offset = 100;
 	const [play] = useSound('soundEffects.m4a', {
 		sprite: {

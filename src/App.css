@@ -145,6 +145,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: stretch;
+  max-height: 80vh;
   width: 75vw;
   bottom: 50%;
   aspect-ratio: 4 / 3;
