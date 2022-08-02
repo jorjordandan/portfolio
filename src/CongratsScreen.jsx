@@ -1,5 +1,4 @@
-import { useStore } from './state.js';
-import { useState } from 'react';
+import { useStore } from './state';
 
 export default function CongratsScreen() {
   const setWinWindowVisible = useStore((state) => state.setWinWindowVisible);

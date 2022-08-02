@@ -1,4 +1,4 @@
-import create from 'zustand';
+import create from "zustand";
 
 interface State {
   //show text to type
@@ -90,7 +90,7 @@ interface State {
 
   won: boolean;
   setWon: () => void;
- 
+
   winWindowVisible: boolean;
   setWinWindowVisible: (visible: boolean) => void;
 }
@@ -102,28 +102,27 @@ interface IButton {
   hideButton: () => void;
 }
 
-
-
 export const useStore = create<State>((set) => ({
   //final win state.
   won: false,
   setWon: () => set((state) => ({ won: true })),
-  
-  winWindowVisible: false,
-  setWinWindowVisible: (visible: boolean) => set((state) => ({ winWindowVisible: visible })),
 
-  dragging: { inProgress: false, item: 'none' },
+  winWindowVisible: false,
+  setWinWindowVisible: (visible: boolean) =>
+    set((state) => ({ winWindowVisible: visible })),
+
+  dragging: { inProgress: false, item: "none" },
   startDragging: (item: string) =>
     set((state) => ({ dragging: { inProgress: true, item: item } })),
   stopDragging: () =>
-    set((state) => ({ dragging: { inProgress: false, item: 'none' } })),
+    set((state) => ({ dragging: { inProgress: false, item: "none" } })),
 
   desk: { power: false, up: false },
   powerOnDesk: () => set((state) => ({ desk: { ...state.desk, power: true } })),
   moveDeskUp: () => set((state) => ({ desk: { ...state.desk, up: true } })),
   moveDeskDown: () => set((state) => ({ desk: { ...state.desk, up: false } })),
 
-  printer: { power: false, printed: [''] },
+  printer: { power: false, printed: [""] },
   powerOnPrinter: () =>
     set((state) => ({ printer: { ...state.printer, power: true } })),
   printObject: (item) =>
@@ -131,13 +130,11 @@ export const useStore = create<State>((set) => ({
       printer: { ...state.printer, printed: [...state.printer.printed, item] },
     })),
 
-  text: [
-    'Here I am in my office again... hey what\'s that box on my desk?',
-  ],
+  text: ["Here I am in my office again... hey what's that box on my desk?"],
   setText: (text: string[]) => set({ text }),
 
   sound: "",
-  playSound: (sound: string) => set({sound}),
+  playSound: (sound: string) => set({ sound }),
 
   button: undefined,
   setButton: (button: IButton | undefined) => set({ button }),

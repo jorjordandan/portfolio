@@ -1,30 +1,38 @@
-import { Suspense, useState, useEffect } from 'react';
-import './App.css';
-import { Canvas } from '@react-three/fiber';
-import { useProgress } from '@react-three/drei'
-import useSound from 'use-sound';
+import { Suspense, useState, useEffect } from "react";
+import "./App.css";
+import { Canvas } from "@react-three/fiber";
 import {
   OrbitControls,
   PerspectiveCamera,
   Environment,
-} from '@react-three/drei';
+} from "@react-three/drei";
 
 // import ambientMusic from "/ambient_music.m34a";
-import Office from './Office';
-import { useStore } from './state.js';
-import Typer from './Typer.jsx';
-import Button from './Button';
-import PrinterScreen from './PrinterScreen';
-import Notebook from './Notebook';
-import ComputerScreen from './ComputerScreen';
-import Inventory from './items/Inventory';
-import CongratsScreen from './CongratsScreen';
-import SoundManager from "./SoundManager"
-import{ Loader} from "./Loader";
+import Office from "./Office";
+import { useStore } from "./state";
+import Typer from "./Typer";
+import Button from "./Button";
+import PrinterScreen from "./PrinterScreen";
+import Notebook from "./Notebook";
+import ComputerScreen from "./ComputerScreen";
+import Inventory from "./items/Inventory";
+import CongratsScreen from "./CongratsScreen";
+import SoundManager from "./SoundManager";
+import { Loader } from "./Loader";
 
+
+// return (
+//   <div className="App">
+//     <Canvas>
+//       <mesh position={[-1, 0, 0]}>
+//         <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+//         <meshStandardMaterial attach="material" color="hotpink" />
+//       </mesh>
+//     </Canvas>
+//   </div>
 
 function App() {
-  const [currentObj, setCurrentObj] = useState('none');
+  const [currentObj, setCurrentObj] = useState("none");
   const [currentTextIdx, setCurrentTextIdx] = useState(0);
 
   const text = useStore((state) => state.text);
@@ -33,27 +41,25 @@ function App() {
   const setText = useStore((state) => state.setText);
   const dragging = useStore((state) => state.dragging);
   const inventory = useStore((state) => state.inventory);
-  const won = useStore((state) => state.won);
   const playSound = useStore((state) => state.playSound);
   const winWindowVisible = useStore((state) => state.winWindowVisible);
-
   const closeInventory = useStore((state) => state.closeInventory);
 
-  useEffect( () => {
-      //need to change the word in order to trigger the useEffect in
-      // the sound manager.
-  
-      playSound('typing')
-    
-  }, [text])
+  // play typing sound whenever the text changes
+  useEffect(() => {
+    playSound("typing");
+  }, [text]);
 
-  const printText = (inText: string[], item: string) => {
+  // handles setting the text, and ensuring the text index is reset when a different
+  // multi-string text is set, and also hiding the button if
+  // new text is set when a button is visible.
+  // this solution is not elegant, and should be combined with the typer
+  // component.
+  const printText = (inText, item) => {
     if (inText.length === 1) {
       setText([inText[0]]);
-      // playSound('typing')
     } else {
       if (item === currentObj) {
-        // playSound('typing')
         setText([inText[currentTextIdx]]);
         setCurrentTextIdx(
           currentTextIdx === inText.length - 1
@@ -61,7 +67,6 @@ function App() {
             : currentTextIdx + 1
         );
       } else {
-        // playSound('typing')
         hideButton();
         setText([inText[0]]);
         setCurrentTextIdx(1);
@@ -70,17 +75,21 @@ function App() {
     }
   };
 
-
-
+  // returns the canvas with the office component,
+  // which contains every other threes object in the main scene,
+  // and the inventory which is a portal.
+  // Also contains all the html screens, such as
+  // the printer, computer, and notebook
+  // and the typer component, which handles the text,
 
   return (
-    <div className='App'>
+    <div className="App">
       <Suspense fallback={<Loader />}>
         <SoundManager />
         <Typer dataText={text} />
         {button && <Button {...button} />}
         {inventory.open && (
-          <div className='inventory-close' onClick={closeInventory}>
+          <div className="inventory-close" onClick={closeInventory}>
             Close
           </div>
         )}
@@ -89,23 +98,24 @@ function App() {
         <PrinterScreen />
         <ComputerScreen />
         {winWindowVisible && <CongratsScreen />}
+
         <Canvas dpr={[1, 2]} shadows colormanagement="none">
           <spotLight
             castShadow
-            color='#ccccff'
+            color="#ccccff"
             intensity={1}
             position={[10, 20, 10]}
             angle={0.5}
-            penumbra={2} 
+            penumbra={2}
             shadow-mapSize={[512, 512]}
             shadow-bias={0.0004}
           />
 
-          <Environment preset='apartment' />
-          <fog attach='fog' args={['#ffffff', 0, 20]} />
+          <Environment preset="apartment" />
+          <fog attach="fog" args={["#ffffff", 0, 20]} />
 
           <Office printText={printText} />
-          {true && <Inventory />}
+          <Inventory />
           <OrbitControls
             makeDefault
             maxPolarAngle={Math.PI / 2}

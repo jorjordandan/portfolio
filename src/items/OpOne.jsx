@@ -14,7 +14,7 @@ export default function Model(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <mesh
-        castShadow
+        castShadow	
         receiveShadow
         geometry={nodes.Object_2.geometry}
         material={materials["palette.002"]}

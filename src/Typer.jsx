@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-const Typer = ({ dataText }: TyperProps) => {
+const Typer = ({ dataText }) => {
   const [text, setText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [speed, setSpeed] = useState(150);
@@ -15,7 +15,7 @@ const Typer = ({ dataText }: TyperProps) => {
   // the full text without the ~ , and sets the isPrepared to true
   const prepareText = () => {
     const arrayText = fullText.split("");
-    let splits: number[] = [];
+    let splits= [];
     arrayText.forEach((letter, idx) => {
       letter === "~" ? splits.push(idx) : null;
     });
@@ -78,9 +78,5 @@ const Typer = ({ dataText }: TyperProps) => {
   );
 };
 
-interface TyperProps {
-  dataText: string[];
-
-}
 
 export default Typer;

@@ -1,19 +1,14 @@
-import { useState, Suspense, useEffect } from 'react';
-import './App.css';
-import { BakeShadows } from '@react-three/drei';
+// import './App.css';
 
-import OfficeBase from './items/OfficeBase';
-import ThreePrinter from './items/3dPrinter';
-import { Desktop } from './items/DeskTop';
-import Chair from './items/Chair';
-import { ChairTop } from './items/Chair';
-import PrinterCord from './items/PrinterCord';
-import { Outlet, CordFloor, CordPlugged } from './items/Cord.js';
+import OfficeBase from "./items/OfficeBase";
+import ThreePrinter from "./items/3dPrinter";
+import { Desktop } from "./items/DeskTop";
+import Chair from "./items/Chair";
+import { ChairTop } from "./items/Chair";
+import PrinterCord from "./items/PrinterCord";
+import { Outlet, CordFloor, CordPlugged } from "./items/Cord.jsx";
 import Discs from "./items/Discs";
-// import OpOne from "./items/OpOne";
-// import NotebookClosed from './items/NotebookClosed';
-import { texts } from './text.js';
-import { useStore } from './state.js';
+import { texts } from "./text";
 
 export default function Office({ printText }) {
   const defaults = { position: [0, 0, 0], scale: 1, printText, texts };
@@ -40,16 +35,14 @@ export default function Office({ printText }) {
     <group position={[0, -1, 1.5]}>
       <OfficeBase {...defaults} />
       <Desktop {...defaults} />
-
       <ThreePrinter {...defaults} />
       <Chair {...defaults} />
-      <ChairTop  />
+      <ChairTop />
       <Outlet {...defaults} />
       <CordFloor {...defaults} />
       <CordPlugged />
       <PrinterCord {...defaults} />
       <Discs {...defaults} />
-      {/* <BakeShadows /> */}
     </group>
   );
 }

@@ -83,7 +83,7 @@ const RingTwo = ({ cam }) => {
 
   const { size } = useThree();
   const initialScale = [100, 100, 100];
-  const initialPos = [size.width / 2 - 100, size.height / 2 - 330, -10];
+  const initialPos = [size.width / 2 - 100, size.height / 2 - 330, -100];
   const initialRot = [0.4, 0.5, 0.4];
 
   const [spring, set] = useSpring(() => ({
@@ -165,12 +165,13 @@ export const InvPuzzleBox = (props) => {
   const setWinWindowVisible = useStore((state) => state.setWinWindowVisible);
 
   const rotations = [0, Math.PI / 2, Math.PI, Math.PI + Math.PI / 2];
-
+  // console.log(ringOne.installed)
+  // console.log(dragging.item)
   if (lowerRotation + upperRotation === 0 && !won) {
     !boxOpen && setBoxOpen(true);
     !won && setWinWindowVisible(true);
     setWon();
-    playSound('win');
+    playSound("win");
     setText(["You did it :) Thanks for playing."]);
   }
 
@@ -245,6 +246,7 @@ export const InvPuzzleBox = (props) => {
   };
 
   const hoverHandler = () => {
+    // console.log("hover");
     if (dragging.item === "RingOne") {
       installRingOne();
       playSound("click");

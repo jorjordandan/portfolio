@@ -22,12 +22,10 @@ export default function sdcard(props) {
   const initialRot = [0.3, -4, -3];
   const [spring, set] = useSpring(() => ({
     scale: [30, 30, 30],
-    position:  props.position,
+    position: props.position,
     rotation: initialRot,
     config: { friction: 10 },
   }));
-
-
 
   const bind = useGesture(
     {
@@ -36,7 +34,7 @@ export default function sdcard(props) {
         set({
           position: [
             xa + size.width / 2 - 100,
-            -ya + size.height / 2 - 410,
+            -ya + size.height / 2 - 510,
             -300,
           ],
           rotation: [-xa / 100, 0, xa / 300],
@@ -46,7 +44,7 @@ export default function sdcard(props) {
       onDragEnd: () => {
         stopDragging();
         set({
-          position:  props.position,
+          position: props.position,
           rotation: initialRot,
           scale: initialScale,
         });
@@ -63,7 +61,13 @@ export default function sdcard(props) {
 
   return (
     <>
-      <animated.group {...props} {...spring}  {...bind()} ref={group} dispose={null}>
+      <animated.group
+        {...props}
+        {...spring}
+        {...bind()}
+        ref={group}
+        dispose={null}
+      >
         <group scale={[0.05, 1.45, 1]}>
           <mesh
             castShadow

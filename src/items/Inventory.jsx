@@ -40,7 +40,7 @@ export default function Inventory() {
       <SDCard
         matrix={matrix}
         cam={virtualCam}
-        position={[size.width / 2 - 100, size.height / 2 - 360, -200]}
+        position={[size.width / 2 - 100, size.height / 2 - 510, -200]}
 
         visible={sdCard.collected && !sdCard.installed}
       />
