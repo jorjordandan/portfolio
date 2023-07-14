@@ -103,7 +103,7 @@ function App() {
           <spotLight
             castShadow
             color="#ccccff"
-            intensity={1}
+            intensity={0.5}
             position={[10, 20, 10]}
             angle={0.5}
             penumbra={2}
@@ -111,7 +111,7 @@ function App() {
             shadow-bias={0.0004}
           />
 
-          <Environment preset="apartment" />
+          <Environment files="/city.hdr" />
           <fog attach="fog" args={["#ffffff", 0, 20]} />
 
           <Office printText={printText} />
